@@ -2,6 +2,7 @@ using UnityEngine;
 using Photon.Pun;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
@@ -96,7 +97,12 @@ public class MenuManager : MonoBehaviourPunCallbacks
 			// #Critical
 			// Load the Room Level. 
 			PhotonNetwork.LoadLevel(1);
-
+			
 		}
+		Debug.Log(PhotonNetwork.LevelLoadingProgress);
+        if (PhotonNetwork.LevelLoadingProgress <= 0.9f)
+        {
+			SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
+        }
 	}
 }
