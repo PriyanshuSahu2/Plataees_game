@@ -13,7 +13,7 @@ public class WalletLogin: MonoBehaviour
         if (rememberMe.isOn && PlayerPrefs.GetString("Account") != "")
         {
             // move to next scene
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+           // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 
@@ -35,7 +35,7 @@ public class WalletLogin: MonoBehaviour
             // save account
             PlayerPrefs.SetString("Account", account);
             // load next scene
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 }
