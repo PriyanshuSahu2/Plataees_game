@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class WalletLogin: MonoBehaviour
 {
     public Toggle rememberMe;
-
+    [SerializeField] GameObject startPanel;
+    [SerializeField] GameObject openingPanel;
     void Start() {
         // if remember me is checked, set the account to the saved account
         if (rememberMe.isOn && PlayerPrefs.GetString("Account") != "")
@@ -36,6 +37,8 @@ public class WalletLogin: MonoBehaviour
             PlayerPrefs.SetString("Account", account);
             // load next scene
             //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            startPanel.SetActive(true);
+            openingPanel.SetActive(false);
         }
     }
 }
