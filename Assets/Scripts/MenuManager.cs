@@ -8,6 +8,7 @@ public class MenuManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     [SerializeField] TMP_Text Loading;
     [SerializeField] Button startBtn;
+	
 	bool isConnecting;
 
 	string gameVersion = "1";
@@ -29,16 +30,17 @@ public class MenuManager : MonoBehaviourPunCallbacks
 	public void Connect()
 	{
 
+		startBtn.interactable = false;
+		startBtn.GetComponentInChildren<TMP_Text>().text = "Loading...";
 
-	
 		isConnecting = true;
 
 
 
 		if (PhotonNetwork.IsConnected)
 		{
-			
-			
+
+
 			PhotonNetwork.JoinRandomRoom();
 		}
 		else
