@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public float runningSpeed = 11.5f;
     public float jumpSpeed = 8.0f;
     public float gravity = 20.0f;
-    public Camera playerCamera;
+    private Camera playerCamera;
+    public Camera[] cameras;
     public float lookSpeed = 2.0f;
     public float lookXLimit = 45.0f;
 
@@ -38,6 +39,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         if (Pv.IsMine)
         {
+            playerCamera = cameras[0];
             isJumping = false;
             characterController = GetComponent<CharacterController>();
             anim = GetComponent<Animator>();
@@ -45,6 +47,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             SpeedHash = Animator.StringToHash("Speed");
+            
         }
         else
         {
@@ -56,9 +59,27 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (Pv.IsMine)
         {
             PlayerMovement();
+            CameraChange();
         }
     }
-
+    void CameraChange()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (playerCamera == cameras[0])
+            {
+                playerCamera = cameras[1];
+                cameras[0].enabled = false;
+                cameras[1].enabled = true;
+            }
+            else
+            {
+                playerCamera = cameras[0];
+                cameras[1].enabled = false;
+                cameras[0].enabled = true;
+            }
+        }
+    }
     void PlayerMovement()
     {
         distanceFromGroundOnJumping = DistanceFromGround();
