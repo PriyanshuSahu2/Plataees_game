@@ -13,19 +13,23 @@ public class MenuManager : MonoBehaviourPunCallbacks
 
 	string gameVersion = "1";
 
+	[SerializeField] GameObject spalshScreen; 
 
 
 	void Awake()
 	{
 
-
-
 		PhotonNetwork.AutomaticallySyncScene = true;
+		Invoke("CloseSpalsh", 5f);
 
 	}
 
 
+	void CloseSpalsh()
+    {
+		spalshScreen.SetActive(false);
 
+	}
 
 	public void Connect()
 	{
@@ -39,14 +43,10 @@ public class MenuManager : MonoBehaviourPunCallbacks
 
 		if (PhotonNetwork.IsConnected)
 		{
-
-
 			PhotonNetwork.JoinRandomRoom();
 		}
 		else
 		{
-
-			
 
 			// #Critical, we must first and foremost connect to Photon Online Server.
 			PhotonNetwork.ConnectUsingSettings();
