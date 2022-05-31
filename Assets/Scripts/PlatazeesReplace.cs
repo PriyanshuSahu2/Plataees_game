@@ -19,7 +19,7 @@ public class PlatazeesReplace : EditorWindow
         
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.BeginVertical();
-        size = EditorGUILayout.IntField(size);
+     
         if (GUILayout.Button("Confirm"))
         {
             gamobjects = new GameObject[size];

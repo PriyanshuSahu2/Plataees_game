@@ -11,7 +11,7 @@ public class AddPlatazees : EditorWindow
     [SerializeField] GameObject gb;
     [SerializeField] bool isManual =false;
     [SerializeField] bool isAutomatic =false;
-
+    [SerializeField] Object[] k;
     private DefaultAsset targetFolder = null;
 
 
@@ -87,7 +87,6 @@ public class AddPlatazees : EditorWindow
         EditorGUILayout.BeginVertical();
         for (int i = 0; i < location.Length; i++)
         {
-
             location[i] = EditorGUILayout.Vector3Field("",location[i]);
         }
         EditorGUILayout.EndVertical();
@@ -97,6 +96,7 @@ public class AddPlatazees : EditorWindow
     }
     private string path ="No Path";
     int i = 0;
+    string[] info;
     void Automatic()
     {
         GUILayout.BeginHorizontal();
@@ -105,22 +105,33 @@ public class AddPlatazees : EditorWindow
        if(GUILayout.Button("Select FOlder"))
         {
             path = EditorUtility.OpenFolderPanel("Path", Application.dataPath, "");
-
-
+            info = Directory.GetFiles(path, "*.Fbx");
+            location = new Vector3[info.Length];
+            gamobjects = new GameObject[info.Length];
         }
         GUILayout.EndHorizontal();
-        var info = Resources.LoadAll("Models");
        
-        gamobjects = new GameObject[info.Length];
+
+        
+        GUILayout.BeginHorizontal();
         GUILayout.BeginVertical();
-        Debug.Log(info.Length);
-        foreach (GameObject gb in info)
+       
+        
+        for(int i = 0; i < gamobjects.Length; i++)
         {
-            Debug.Log(i);
-            gamobjects[i] = EditorGUILayout.ObjectField(gb, typeof(GameObject), true) as GameObject;
-            i++;
+            string t = info[i].Replace("D:/Unity Projects/Plataees_game/", "");
+             Object g = AssetDatabase.LoadAssetAtPath(t.Replace("\\", "/"), typeof(GameObject));
+            gamobjects[i] = EditorGUILayout.ObjectField(g, typeof(GameObject), true) as GameObject;
+            
         }
-        GUILayout.EndVertical();
+        EditorGUILayout.EndVertical();
+        EditorGUILayout.BeginVertical();
+        for (int i = 0; i < location.Length; i++)
+        {
+            location[i] = EditorGUILayout.Vector3Field("", location[i]);
+        }
+        EditorGUILayout.EndVertical();
+        GUILayout.EndHorizontal();
     }
     void Add()
     {
