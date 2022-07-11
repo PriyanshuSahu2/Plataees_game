@@ -10,6 +10,7 @@ public class LevelGenerator : EditorWindow
     [SerializeField] GameObject[] gamobjects;
     [SerializeField] Vector3 pos = new Vector3(2000,0,1000);
     [SerializeField] Vector2 scrollPos;
+    [SerializeField] Object Gb;
     private string path = "No Path";
     int i = 0;
     string[] info;
@@ -22,7 +23,8 @@ public class LevelGenerator : EditorWindow
     {
         map = EditorGUILayout.ObjectField(map,typeof(Texture2D),false) as Texture2D;
         color = EditorGUILayout.ColorField(color);
-        Automatic();
+        if (GUILayout.Button("Manual")) { Manual(); }
+        if (GUILayout.Button("Automatic")) { Automatic(); }
         if (GUILayout.Button("Generate Level"))
         {
             GenerateLevel();
@@ -46,13 +48,13 @@ public class LevelGenerator : EditorWindow
     void GenerateTile(int x,int y)
     {
         Color pixelColor = map.GetPixel(x, y);
-        pos = new Vector3(posx-x*43, 0,posz+y*43);
+        pos = new Vector3(posx-x*44, 0,posz+y*44);
         Debug.Log(pos);
         if (pixelColor.a == 0)
         {
             return;
         }
-        Instantiate(gamobjects[i], pos, Quaternion.identity);
+        gamobjects[i].transform.position = pos;
         i++;
        
     }
@@ -91,6 +93,32 @@ public class LevelGenerator : EditorWindow
         EditorGUILayout.BeginVertical();
         EditorGUILayout.EndVertical();
         GUILayout.EndHorizontal();
+    }
+
+    void Manual()
+    {
+        gamobjects = GameObject.FindGameObjectsWithTag("House");
+        scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
+        EditorGUILayout.BeginVertical();
+
+        foreach (Object gb in gamobjects)
+        {
+            GameObject k = (GameObject)gb;
+            EditorGUILayout.LabelField(k.name);
+            Gb = EditorGUILayout.ObjectField(gb, typeof(object), true);
+        }
+        foreach (GameObject gb in gamobjects)
+        {
+
+            if (Physics.Raycast(gb.transform.position, gb.transform.TransformDirection(Vector3.forward), 86f))
+            {
+                Debug.DrawRay(gb.transform.position, gb.transform.TransformDirection(Vector3.forward) * 86f);
+                Debug.Log(gb.name);
+            }
+
+        }
+        EditorGUILayout.EndVertical();
+        EditorGUILayout.EndScrollView();
     }
     private void OnEnable()
     {
