@@ -1,6 +1,7 @@
 using UnityEditor;
 using UnityEngine;
-
+using System.Linq;
+using System.IO;
 public class PlatazeesReplace : EditorWindow
 {
     [SerializeField] int size;
@@ -8,6 +9,10 @@ public class PlatazeesReplace : EditorWindow
     [SerializeField] GameObject[] gamobjects;
     [SerializeField] GameObject[] replaceWith;
     [SerializeField] GameObject gb;
+    [SerializeField] Vector2 scrollPos;
+    private string path = "No Path";
+    int i = 0;
+    string[] info;
     [MenuItem("Window/Platzees/Replace")]
     public static void ShowWindow()
     {
@@ -21,26 +26,43 @@ public class PlatazeesReplace : EditorWindow
         int.TryParse(temp,out size);
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.BeginVertical();
-     
+        GUILayout.BeginHorizontal();
+
+        GUILayout.Label("Path");
+        path = GUILayout.TextField(path);
+        if (GUILayout.Button("Select FOlder"))
+        {
+            path = EditorUtility.OpenFolderPanel("Path", Application.dataPath, "");
+            info = Directory.GetFiles(path, "*.Fbx");
+            replaceWith = new GameObject[info.Length];
+        }
+        GUILayout.EndHorizontal();
+
         if (GUILayout.Button("Confirm"))
         {
-            gamobjects = new GameObject[size];
-            replaceWith = new GameObject[size];
+            gamobjects = GameObject.FindGameObjectsWithTag("House");
+            gamobjects = gamobjects.OrderBy(go => go.name).ToArray();
         }
         EditorGUILayout.BeginHorizontal();
+        scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
         EditorGUILayout.BeginVertical();
         for (int i = 0; i < gamobjects.Length; i++)
         {
-            Debug.Log("Ekek");
+            
             gamobjects[i] = EditorGUILayout.ObjectField(gamobjects[i], typeof(GameObject), true) as GameObject;
         }
         EditorGUILayout.EndVertical();
+        EditorGUILayout.EndScrollView();
+        scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
         EditorGUILayout.BeginVertical();
         for (int i = 0; i < replaceWith.Length; i++)
         {
-            replaceWith[i] = EditorGUILayout.ObjectField(replaceWith[i], typeof(GameObject), true) as GameObject;
+            string t = info[i].Replace("D:/Unity Projects/Plataees_game/", "");
+            Object g = AssetDatabase.LoadAssetAtPath(t.Replace("\\", "/"), typeof(GameObject));
+            replaceWith[i] = EditorGUILayout.ObjectField(g, typeof(GameObject), true) as GameObject;
         }
         EditorGUILayout.EndVertical();
+        EditorGUILayout.EndScrollView();
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.EndVertical();
 
