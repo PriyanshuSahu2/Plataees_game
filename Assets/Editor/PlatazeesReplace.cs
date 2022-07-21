@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlatazeesReplace : EditorWindow
 {
     [SerializeField] int size;
+    public string temp;
     [SerializeField] GameObject[] gamobjects;
     [SerializeField] GameObject[] replaceWith;
     [SerializeField] GameObject gb;
@@ -16,7 +17,8 @@ public class PlatazeesReplace : EditorWindow
     {
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("How Many Houses You Want To Replace");
-        
+        temp =EditorGUILayout.TextField("Object Name: ", temp);
+        int.TryParse(temp,out size);
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.BeginVertical();
      

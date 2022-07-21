@@ -53,6 +53,7 @@ public class Extractor : EditorWindow
                 Object g = AssetDatabase.LoadAssetAtPath(t.Replace("\\", "/"), typeof(GameObject));
                 var tex = AssetImporter.GetAtPath(t) as ModelImporter;
                 tex.materialLocation = ModelImporterMaterialLocation.External;
+                tex.materialName = ModelImporterMaterialName.BasedOnModelNameAndMaterialName;
               //  tex.ExtractTextures("Assets/All Houese/Textures/" + g.name);
                 // Debug.Log(tex.ExtractTextures("Assets/All Houese/Textures/"+g.name));
                 gamobjects[i] = EditorGUILayout.ObjectField(g, typeof(GameObject), true) as GameObject;
