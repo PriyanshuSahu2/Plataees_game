@@ -8,6 +8,8 @@ public class Teleportaion : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] float pos;
     [SerializeField] GameObject teleportationMenu;
+    bool havEntered = false;
+
     void Start()
     {
         
@@ -17,15 +19,12 @@ public class Teleportaion : MonoBehaviour
     void Update()
     {
 
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 20f))
+        if (havEntered)
         {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
-            Debug.Log("Did Hit");
+
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if (hit.transform.gameObject.CompareTag("Player"))
-                {
+
                     if (!teleportationMenu.activeSelf)
                     {
                         teleportationMenu.SetActive(true);
@@ -38,16 +37,28 @@ public class Teleportaion : MonoBehaviour
                         Cursor.visible = false;
                         teleportationMenu.SetActive(false);
                     }
-                }
-
+            
             }
+
         }
         else
         {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.yellow);
-            Debug.Log("Did not Hit");
+
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            havEntered = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            havEntered = false;
         }
     }
 
-    
 }

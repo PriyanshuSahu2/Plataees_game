@@ -154,6 +154,10 @@ namespace StarterAssets
 
         private void Update()
         {
+            if (Time.timeScale == 0)
+            {
+                return;
+            }
             _hasAnimator = TryGetComponent(out _animator);
 
             JumpAndGravity();
@@ -163,6 +167,10 @@ namespace StarterAssets
 
         private void LateUpdate()
         {
+            if (Time.timeScale ==0)
+            {
+                return;
+            }
             CameraRotation();
         }
 
