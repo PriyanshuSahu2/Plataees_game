@@ -58,7 +58,7 @@ public class Register : MonoBehaviour
           
             string res = req.downloadHandler.text;
             userData = JsonUtility.FromJson<RegisterData>(json);
-            Debug.Log(res);
+    
         }
 
         
