@@ -19,7 +19,7 @@ public class Login : MonoBehaviour
         loginWithEmailPass = new LoginWithEmailPass();
         loginUserData = new LoginUserData();
         loginStatus = new LoginStatus();
-        loginWithEmailPass.type = 1;
+        loginWithEmailPass.type = 2;
         loginWithEmailPass.value_type = email.text;
         loginWithEmailPass.password = password.text;
         StartCoroutine(LoginUser_Coroutine());
@@ -50,6 +50,7 @@ public class Login : MonoBehaviour
             {
                 mainMenu.onLoginBtn();
             }
+            Debug.Log(res);
         }
 
 
@@ -60,7 +61,7 @@ public class Login : MonoBehaviour
 [Serializable]
 public class LoginWithEmailPass
 {
-    public int type = 1;
+    public int type = 2;
     public string value_type;
     public string password;
 

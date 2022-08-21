@@ -71,4 +71,9 @@ public class MainMenu : MonoBehaviour
         i_startPanel.SetActive(false);
         loadingLevel.StartCoroutine(loadingLevel.LoadLevel());
     }
+    public void onRegisterBtn()
+    {
+        i_registerPanel.SetActive(false);
+        i_loginPanel.SetActive(true);
+    }
 }

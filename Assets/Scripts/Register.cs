@@ -19,8 +19,11 @@ public class Register : MonoBehaviour
     [SerializeField] TMP_InputField genderId;
 
     [SerializeField] RegisterData userData;
+    [SerializeField] RegisterStatus registerStatus;
 
     [SerializeField] string DOB;
+
+    [SerializeField] MainMenu g_RegisterPanel;
     void Start()
     {
         
@@ -57,8 +60,15 @@ public class Register : MonoBehaviour
         {
           
             string res = req.downloadHandler.text;
-            userData = JsonUtility.FromJson<RegisterData>(json);
-    
+            registerStatus = JsonUtility.FromJson<RegisterStatus>(res);
+            if(registerStatus.body.code == "1")
+            {
+                g_RegisterPanel.onRegisterBtn();
+            }
+            else
+            {
+
+            }
         }
 
         
@@ -75,14 +85,12 @@ public class Register : MonoBehaviour
         userData.name = first_name.text;
         userData.last_name = last_name.text;
         userData.date_birth = DOB;
-        userData.user_name = "Platzee8";
+        userData.user_name = first_name.text + DOB + last_name;
         userData.password = password.text;
         userData.email = email.text;
-        userData.nick_name = "Priasyuy8asid";
-        userData.wallet = "xoosoaaskdsakdk8asok";
+        userData.nick_name = first_name.text+DOB+last_name;
+        userData.wallet = first_name.text + DOB + last_name;
         userData.genderId = "1";
-
-
 
        /* form.AddField("languageId", 1);
         form.AddField("name", "Priyanshu");
@@ -95,4 +103,32 @@ public class Register : MonoBehaviour
         form.AddField("wallet", "xoosoaaskdsakdkasok");
         form.AddField("genderId", "1");*/
     }
+}
+
+[System.Serializable]
+class RegisterStatus
+{
+    public string error;
+    public string status;
+    public RegisterBody body;
+}
+[System.Serializable]
+class RegisterBody
+{
+    public string code;
+    public RegisterbodyData registerbodyData;
+}
+[System.Serializable]
+class RegisterbodyData
+{
+    public int languageId;
+    public string name;
+    public string last_name;
+    public string date_birth;
+    public string user_name;
+    public string password;
+    public string email;
+    public string nick_name;
+    public string wallet;
+    public string genderId ;
 }
