@@ -5,21 +5,36 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
     // Start is called before the first frame update
+    [Header("Main Menu Navigation")]
     [SerializeField] GameObject i_LoadingPanel;
     [SerializeField] GameObject i_loginPanel;
     [SerializeField] GameObject i_registerPanel;
     [SerializeField] GameObject i_startPanel;
     [SerializeField] GameObject i_customizePanel;
-    [SerializeField] Image i_LoadingBar;
+    [SerializeField] GameObject i_ForgotPassword;
 
+    [Header("Loading Bar Settings")]
+    [SerializeField] Image i_LoadingBar;
     [SerializeField] float splashScreenTimer = 3.8f;
     float loadbarFullTime = 0f;
     [SerializeField] LoadingLevel loadingLevel;
 
+    [Header("Setting Panel Navigation")]
+    [SerializeField] GameObject i_Profile;
+    [SerializeField] GameObject i_SelectDistrict;
+    [SerializeField] GameObject i_Settings;
+    [SerializeField] GameObject i_Tutorial;
+    [SerializeField] GameObject i_Language;
+    [SerializeField] GameObject i_Friends;
+
+    List<GameObject> AllPanels = new List<GameObject>();
     bool isFirst = true;
     void Start()
     {
         i_LoadingPanel.SetActive(true);
+        AllPanels.Add(i_SelectDistrict);
+        AllPanels.Add(i_Settings);
+        AllPanels.Add(i_Profile);
     }
 
     // Update is called once per frame
@@ -44,12 +59,23 @@ public class MainMenu : MonoBehaviour
         }
     }
 
+    #region ---MainMenu Navigation---
     public void onLoginBtn()
     {
         i_startPanel.SetActive(true);
         i_loginPanel.SetActive(false);
     }
 
+    public void onForgorPasswordBtn()
+    {
+        i_ForgotPassword.SetActive(true);
+        i_loginPanel.SetActive(false);
+    }
+    public void onGoBack()
+    {
+        i_ForgotPassword.SetActive(false);
+        i_loginPanel.SetActive(true);
+    }
     public void onCreateAccountBtn()
     {
         i_registerPanel.SetActive(true);
@@ -76,4 +102,38 @@ public class MainMenu : MonoBehaviour
         i_registerPanel.SetActive(false);
         i_loginPanel.SetActive(true);
     }
+    public void RegisterLoginBtn()
+    {
+        i_registerPanel.SetActive(false);
+        i_loginPanel.SetActive(true);
+    }
+
+    public void QuitBtn()
+    {
+        Application.Quit();
+    }
+    #endregion
+
+
+    #region ---Customize Naviagtion---
+    public void ToggleAllPanels(GameObject newPanel)
+    {
+      foreach(GameObject gb in AllPanels)
+        {
+            if (gb!=null)
+            {
+                if (newPanel == gb)
+                {
+                    gb.SetActive(true);
+                }
+                else
+                {
+                    gb.SetActive(false);
+                }
+                
+            }
+        }
+    }
+
+    #endregion
 }

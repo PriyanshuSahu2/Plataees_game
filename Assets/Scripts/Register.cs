@@ -18,6 +18,8 @@ public class Register : MonoBehaviour
     [SerializeField] TMP_InputField wallet;
     [SerializeField] TMP_InputField genderId;
 
+    [SerializeField] TMP_Text errorMessageText;
+
     [SerializeField] RegisterData userData;
     [SerializeField] RegisterStatus registerStatus;
 
@@ -64,10 +66,13 @@ public class Register : MonoBehaviour
             if(registerStatus.body.code == "1")
             {
                 g_RegisterPanel.onRegisterBtn();
+
             }
             else
             {
-
+                string errorMessage = res.Split(":")[5].Replace('"', ' ').Replace("}", " ");
+                errorMessageText.color = Color.red;
+                errorMessageText.text = errorMessage;
             }
         }
 
@@ -85,10 +90,10 @@ public class Register : MonoBehaviour
         userData.name = first_name.text;
         userData.last_name = last_name.text;
         userData.date_birth = DOB;
-        userData.user_name = first_name.text + DOB + last_name;
+        userData.user_name = user_name.text;
         userData.password = password.text;
         userData.email = email.text;
-        userData.nick_name = first_name.text+DOB+last_name;
+        userData.nick_name = first_name.text+user_name+last_name;
         userData.wallet = first_name.text + DOB + last_name;
         userData.genderId = "1";
 

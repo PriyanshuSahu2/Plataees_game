@@ -2,15 +2,15 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Networking;
 using System.Collections;
-using System.Collections.Generic;
 using System;
-using Newtonsoft.Json;
+
 
 public class Login : MonoBehaviour
 {
     [SerializeField] TMP_InputField email;
     [SerializeField] TMP_InputField password;
     [SerializeField] MainMenu mainMenu;
+    [SerializeField] TMP_Text errorMessageText;
     private LoginWithEmailPass loginWithEmailPass;
     private LoginUserData loginUserData;
     private LoginStatus loginStatus;
@@ -48,9 +48,17 @@ public class Login : MonoBehaviour
             loginStatus = JsonUtility.FromJson<LoginStatus>(res);
             if (loginStatus.body.code == "1")
             {
+                errorMessageText.text = "Login Successful Please Wait";
+                errorMessageText.color = Color.green;
                 mainMenu.onLoginBtn();
             }
-            Debug.Log(res);
+            else
+            {
+                string errorMessage = res.Split(":")[5].Replace('"', ' ').Replace("}", " ");
+                errorMessageText.color = Color.red;
+                errorMessageText.text = errorMessage;
+            }
+           
         }
 
 
@@ -80,6 +88,7 @@ public class LoginBody
 {
     public string code;
     public LoginUserData data;
+   
 }
 
 [Serializable]
