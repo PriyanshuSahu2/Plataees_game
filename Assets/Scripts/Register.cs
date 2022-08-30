@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Networking;
@@ -16,7 +17,8 @@ public class Register : MonoBehaviour
     [SerializeField] TMP_InputField email;
     [SerializeField] TMP_InputField nick_name;
     [SerializeField] TMP_InputField wallet;
-    [SerializeField] TMP_InputField genderId;
+    [SerializeField] Toggle genderId;
+   
 
     [SerializeField] TMP_Text errorMessageText;
 
@@ -95,18 +97,18 @@ public class Register : MonoBehaviour
         userData.email = email.text;
         userData.nick_name = first_name.text+user_name+last_name;
         userData.wallet = first_name.text + DOB + last_name;
-        userData.genderId = "1";
+        userData.genderId = genderId.isOn ? "1" : "2";
 
-       /* form.AddField("languageId", 1);
-        form.AddField("name", "Priyanshu");
-        form.AddField("last_name", "Sahu");
-        form.AddField("date_birth", "2002-09-02");
-        form.AddField("user_name", "Platzee6");
-        form.AddField("password", "Platzee6");
-        form.AddField("email", "Priyanshu11223@gmail.com");
-        form.AddField("nick_name", "Priyanshu231");
-        form.AddField("wallet", "xoosoaaskdsakdkasok");
-        form.AddField("genderId", "1");*/
+        /* form.AddField("languageId", 1);
+         form.AddField("name", "Priyanshu");
+         form.AddField("last_name", "Sahu");
+         form.AddField("date_birth", "2002-09-02");
+         form.AddField("user_name", "Platzee6");
+         form.AddField("password", "Platzee6");
+         form.AddField("email", "Priyanshu11223@gmail.com");
+         form.AddField("nick_name", "Priyanshu231");
+         form.AddField("wallet", "xoosoaaskdsakdkasok");
+         form.AddField("genderId", "1");*/
     }
 }
 
