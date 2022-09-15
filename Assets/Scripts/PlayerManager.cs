@@ -21,8 +21,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
     void CreateController()
     {
-        Transform spawnpoint = spawnManager.GetComponent<SpawnManager>().GetSpawnPoint();
-        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), spawnpoint.position, Quaternion.identity);
+       // Transform spawnpoint = spawnManager.GetComponent<SpawnManager>().GetSpawnPoint();
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"),new Vector3(1397.821f,102.4f,593.1f) , Quaternion.identity);
     }
 }
 //Vector3(-22.4094391,-1.90376055,18.7973022)

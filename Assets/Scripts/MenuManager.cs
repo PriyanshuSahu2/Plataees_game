@@ -34,8 +34,8 @@ public class MenuManager : MonoBehaviourPunCallbacks
 	public void Connect()
 	{
 
-		startBtn.interactable = false;
-		startBtn.GetComponentInChildren<TMP_Text>().text = "Loading...";
+		//startBtn.interactable = false;
+		//startBtn.GetComponentInChildren<TMP_Text>().text = "Loading...";
 
 		isConnecting = true;
 

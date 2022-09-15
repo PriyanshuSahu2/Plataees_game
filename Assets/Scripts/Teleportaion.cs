@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Photon.Pun;
 public class Teleportaion : MonoBehaviour
 {
     [SerializeField] float radius=3f;
@@ -69,8 +70,9 @@ public class Teleportaion : MonoBehaviour
     }
     public void TeleportationLevel(int levelIndex)
     {
-        LoadingMenu.SetActive(true);
-        StartCoroutine(LoadLevel(levelIndex));
+        PhotonNetwork.LoadLevel(levelIndex);
+        //LoadingMenu.SetActive(true);
+       // StartCoroutine(LoadLevel(levelIndex));
     }
     public IEnumerator LoadLevel(int levelIndex)
     {
