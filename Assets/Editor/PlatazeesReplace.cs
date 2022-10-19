@@ -6,6 +6,7 @@ public class PlatazeesReplace : EditorWindow
 {
     [SerializeField] int size;
     public string temp;
+    public string objectName;
     [SerializeField] GameObject[] gamobjects;
     [SerializeField] GameObject[] replaceWith;
     [SerializeField] GameObject gb;
@@ -23,6 +24,7 @@ public class PlatazeesReplace : EditorWindow
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("How Many Houses You Want To Replace");
         temp =EditorGUILayout.TextField("Object Name: ", temp);
+        objectName = EditorGUILayout.TextField("Object Name: ", objectName);
         int.TryParse(temp,out size);
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.BeginVertical();
@@ -48,14 +50,13 @@ public class PlatazeesReplace : EditorWindow
         EditorGUILayout.BeginVertical();
         for (int i = 0; i < gamobjects.Length; i++)
         {
-            
             gamobjects[i] = EditorGUILayout.ObjectField(gamobjects[i], typeof(GameObject), true) as GameObject;
         }
         EditorGUILayout.EndVertical();
         EditorGUILayout.EndScrollView();
         scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
         EditorGUILayout.BeginVertical();
-        for (int i = 0; i < replaceWith.Length; i++)
+        for (int i = 0; i < size; i++) // Changhe to replaceWith.Length
         {
             string t = info[i].Replace("D:/Unity Projects/Plataees_game/", "");
             Object g = AssetDatabase.LoadAssetAtPath(t.Replace("\\", "/"), typeof(GameObject));
