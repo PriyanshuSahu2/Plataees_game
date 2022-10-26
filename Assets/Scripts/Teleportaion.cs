@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Photon.Pun;
+using System.IO;
 public class Teleportaion : MonoBehaviour
 {
     [SerializeField] float radius=3f;
@@ -29,10 +30,8 @@ public class Teleportaion : MonoBehaviour
 
         if (havEntered)
         {
-
             if (Input.GetKeyDown(KeyCode.E))
             {
-
                     if (!teleportationMenu.activeSelf)
                     {
                         teleportationMenu.SetActive(true);
@@ -45,9 +44,7 @@ public class Teleportaion : MonoBehaviour
                         Cursor.visible = false;
                         teleportationMenu.SetActive(false);
                     }
-            
             }
-
         }
         else
         {
@@ -70,19 +67,21 @@ public class Teleportaion : MonoBehaviour
     }
     public void TeleportationLevel(int levelIndex)
     {
-        PhotonNetwork.LoadLevel(levelIndex);
+        StartCoroutine(LoadLevel(levelIndex));
         //LoadingMenu.SetActive(true);
        // StartCoroutine(LoadLevel(levelIndex));
     }
     public IEnumerator LoadLevel(int levelIndex)
     {
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(levelIndex);
-        while (!asyncOperation.isDone)
+        PhotonNetwork.LoadLevel(levelIndex);
+        while (PhotonNetwork.LevelLoadingProgress<1)
         {
-            m_ProgreesBar.fillAmount = asyncOperation.progress + 0.1f;
-            yield return null;
+
+            
+            yield return new WaitForEndOfFrame();
         }
-        LoadingMenu.SetActive(false);
-        yield return null;
+        //LoadingMenu.SetActive(false);
+      //  Debug.LogError("Not Stopped");
+      //  PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), new Vector3(1397.821f, 102.4f, 593.1f), Quaternion.identity);
     }
 }

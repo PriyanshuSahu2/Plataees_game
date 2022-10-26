@@ -3,6 +3,8 @@ using Photon.Pun;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
+using System.Collections;
 public class MenuManager : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
@@ -19,7 +21,7 @@ public class MenuManager : MonoBehaviourPunCallbacks
 	void Awake()
 	{
 
-		PhotonNetwork.AutomaticallySyncScene = true;
+		PhotonNetwork.AutomaticallySyncScene = false;
 		Invoke("CloseSpalsh", 5f);
 
 	}
@@ -87,11 +89,22 @@ public class MenuManager : MonoBehaviourPunCallbacks
 		{
 			Debug.Log("We load the 'Room for 1' ");
 
-			PhotonNetwork.LoadLevel(1);
+			StartCoroutine(LoadLevel(1));
 			
 		}
 	}
 
+	public IEnumerator LoadLevel(int levelIndex)
+	{
+		PhotonNetwork.LoadLevel(levelIndex);
+		while (PhotonNetwork.LevelLoadingProgress < 1)
+		{
+			yield return new WaitForEndOfFrame();
+		}
+		//LoadingMenu.SetActive(false);
+		Debug.LogError("FUCK NOW");
+		PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), new Vector3(1397.821f, 102.4f, 593.1f), Quaternion.identity);
+	}
 
 
 }
