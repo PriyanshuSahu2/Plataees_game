@@ -102,7 +102,7 @@ public class MenuManager : MonoBehaviourPunCallbacks
 			yield return new WaitForEndOfFrame();
 		}
 		//LoadingMenu.SetActive(false);
-		Debug.LogError("FUCK NOW");
+		
 		PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), new Vector3(1397.821f, 102.4f, 593.1f), Quaternion.identity);
 	}
 
