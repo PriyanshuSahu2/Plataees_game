@@ -56,10 +56,11 @@ public class PlatazeesReplace : EditorWindow
         EditorGUILayout.EndScrollView();
         scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
         EditorGUILayout.BeginVertical();
-        for (int i = 0; i < size; i++) // Changhe to replaceWith.Length
+        for (int i = 0; i < replaceWith.Length; i++) // Changhe to replaceWith.Length
         {
-            string t = info[i].Replace("D:/Unity Projects/Plataees_game/", "");
+            string t = info[i].Replace("F:/Unity Projects/Plataees_game/", "");
             Object g = AssetDatabase.LoadAssetAtPath(t.Replace("\\", "/"), typeof(GameObject));
+            Debug.Log(g);
             replaceWith[i] = EditorGUILayout.ObjectField(g, typeof(GameObject), true) as GameObject;
         }
         EditorGUILayout.EndVertical();

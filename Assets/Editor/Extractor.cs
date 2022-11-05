@@ -49,7 +49,7 @@ public class Extractor : EditorWindow
 
             for (int i = 0; i < gamobjects.Length; i++)
             {
-                string t = info[i].Replace("D:/Unity Projects/Plataees_game/", "");
+                string t = info[i].Replace("F:/Unity Projects/Plataees_game/", "");
                 Object g = AssetDatabase.LoadAssetAtPath(t.Replace("\\", "/"), typeof(GameObject));
                 var tex = AssetImporter.GetAtPath(t) as ModelImporter;
                 tex.materialLocation = ModelImporterMaterialLocation.External;
