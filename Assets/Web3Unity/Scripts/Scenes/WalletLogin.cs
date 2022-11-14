@@ -9,13 +9,14 @@ public class WalletLogin: MonoBehaviour
     public Toggle rememberMe;
     [SerializeField] GameObject startPanel;
     [SerializeField] GameObject openingPanel;
+    [SerializeField] Text tex;
     void Start() {
         // if remember me is checked, set the account to the saved account
-        if (rememberMe.isOn && PlayerPrefs.GetString("Account") != "")
+        /*if (rememberMe.isOn && PlayerPrefs.GetString("Account") != "")
         {
             // move to next scene
            // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        }
+        }*/
     }
 
     async public void OnLogin()
@@ -32,13 +33,10 @@ public class WalletLogin: MonoBehaviour
         string account = await EVM.Verify(message, signature);
         int now = (int)(System.DateTime.UtcNow.Subtract(new System.DateTime(1970, 1, 1))).TotalSeconds;
         // validate
+        tex.text = account;
         if (account.Length == 42 && expirationTime >= now) {
             // save account
             PlayerPrefs.SetString("Account", account);
-            // load next scene
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            startPanel.SetActive(true);
-            openingPanel.SetActive(false);
         }
     }
 }

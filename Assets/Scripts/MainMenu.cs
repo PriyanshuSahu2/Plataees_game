@@ -107,6 +107,11 @@ public class MainMenu : MonoBehaviour
         i_registerPanel.SetActive(false);
         i_loginPanel.SetActive(true);
     }
+    public void OnBackBtninProfilePanel()
+    {
+        i_Profile.SetActive(false);
+        i_startPanel.SetActive(true);
+    }
 
     public void QuitBtn()
     {

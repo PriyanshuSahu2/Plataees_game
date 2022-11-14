@@ -13,15 +13,16 @@ public class Teleportaion : MonoBehaviour
     [SerializeField] GameObject teleportationMenu;
     [SerializeField] GameObject LoadingMenu;
     [SerializeField] Image m_ProgreesBar;
+    [SerializeField] GameObject teleportationPoint;
     bool havEntered = false;
 
     private void Awake()
     {
-        LoadingMenu.SetActive(false);
+       // LoadingMenu.SetActive(false);
     }
     void Start()
     {
-        LoadingMenu.SetActive(false);
+       // LoadingMenu.SetActive(false);
     }
 
     // Update is called once per frame
@@ -67,21 +68,25 @@ public class Teleportaion : MonoBehaviour
     }
     public void TeleportationLevel(int levelIndex)
     {
-        StartCoroutine(LoadLevel(levelIndex));
+      
+        
         //LoadingMenu.SetActive(true);
-       // StartCoroutine(LoadLevel(levelIndex));
+         StartCoroutine(LoadLevel(levelIndex));
     }
     public IEnumerator LoadLevel(int levelIndex)
     {
         PhotonNetwork.LoadLevel(levelIndex);
+
         while (PhotonNetwork.LevelLoadingProgress<1)
         {
 
-            
             yield return new WaitForEndOfFrame();
         }
         //LoadingMenu.SetActive(false);
-      //  Debug.LogError("Not Stopped");
-      //  PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), new Vector3(1397.821f, 102.4f, 593.1f), Quaternion.identity);
+        // Debug.LogError("Not Stopped");
+    }
+    public void D()
+    {
+        Debug.Log("SKSK");
     }
 }

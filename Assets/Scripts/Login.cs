@@ -14,15 +14,18 @@ public class Login : MonoBehaviour
     private LoginWithEmailPass loginWithEmailPass;
     private LoginUserData loginUserData;
     private LoginStatus loginStatus;
+    [SerializeField] PlayerData playerData;
     public void OnLoginButton()
     {
         loginWithEmailPass = new LoginWithEmailPass();
         loginUserData = new LoginUserData();
         loginStatus = new LoginStatus();
+        playerData = new PlayerData();
         loginWithEmailPass.type = 2;
         loginWithEmailPass.value_type = email.text;
         loginWithEmailPass.password = password.text;
         StartCoroutine(LoginUser_Coroutine());
+        
     }
     IEnumerator LoginUser_Coroutine()
     {
@@ -48,6 +51,10 @@ public class Login : MonoBehaviour
             loginStatus = JsonUtility.FromJson<LoginStatus>(res);
             if (loginStatus.body.code == "1")
             {
+
+                PlayerPrefs.SetString("Token", loginStatus.body.data.token);
+                playerData.SetPlayerInfo(loginStatus.body.data);
+                
                 errorMessageText.text = "Login Successful Please Wait";
                 errorMessageText.color = Color.green;
                 mainMenu.onLoginBtn();
@@ -88,7 +95,6 @@ public class LoginBody
 {
     public string code;
     public LoginUserData data;
-   
 }
 
 [Serializable]

@@ -58,7 +58,6 @@ public class ResetPassword : MonoBehaviour
  public class Data
 {
     public string email;
-
 }
 
 [System.Serializable]

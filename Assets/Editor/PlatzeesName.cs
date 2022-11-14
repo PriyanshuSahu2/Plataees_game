@@ -25,16 +25,13 @@ public class PlatzeesName :EditorWindow
             for(int i = 0; i < gamobjects.Length; i++)
             {
                 GameObject g = Instantiate(canvas, new Vector3(0, 0, 0), Quaternion.identity, gamobjects[i].transform);
-                g.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, -14f);
-                g.GetComponent<RectTransform>().localRotation = new Quaternion(0, 180, 0,0);
+                g.GetComponent<RectTransform>().localPosition = canvas.GetComponent<RectTransform>().localPosition;
+                g.GetComponent<RectTransform>().localRotation = canvas.GetComponent<RectTransform>().rotation;
                 string name = gamobjects[i].name;
                 if (name.Length == 1)
                 {
-                    g.GetComponentInChildren<TMP_Text>().text = "<i>#</i>" + "000" + name;
-                }else if (name.Length == 2)
-                {
                     g.GetComponentInChildren<TMP_Text>().text = "<i>#</i>" + "00" + name;
-                }else if (name.Length == 3)
+                }else if (name.Length == 2)
                 {
                     g.GetComponentInChildren<TMP_Text>().text = "<i>#</i>" + "0" + name;
                 }
