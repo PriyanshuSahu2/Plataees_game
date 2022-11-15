@@ -68,8 +68,6 @@ public class Teleportaion : MonoBehaviour
     }
     public void TeleportationLevel(int levelIndex)
     {
-      
-        
         //LoadingMenu.SetActive(true);
          StartCoroutine(LoadLevel(levelIndex));
     }

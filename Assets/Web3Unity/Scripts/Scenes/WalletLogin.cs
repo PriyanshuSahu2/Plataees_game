@@ -10,6 +10,7 @@ public class WalletLogin: MonoBehaviour
     [SerializeField] GameObject startPanel;
     [SerializeField] GameObject openingPanel;
     [SerializeField] Text tex;
+    [SerializeField] PlayerPlatzeesInfo profilePanel;
     void Start() {
         // if remember me is checked, set the account to the saved account
         /*if (rememberMe.isOn && PlayerPrefs.GetString("Account") != "")
@@ -37,6 +38,7 @@ public class WalletLogin: MonoBehaviour
         if (account.Length == 42 && expirationTime >= now) {
             // save account
             PlayerPrefs.SetString("Account", account);
+            profilePanel.CallSmartContract();
         }
     }
 }
