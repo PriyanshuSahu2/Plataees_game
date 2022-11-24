@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 440481817699136208}
   - component: {fileID: 440481817699136211}
   - component: {fileID: 104530330907273174}
+  - component: {fileID: 8214901083305686301}
   m_Layer: 5
   m_Name: Container
   m_TagString: Untagged
@@ -138,6 +139,35 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8214901083305686301}
+          m_TargetAssemblyTypeName: MapNavigationRef, Assembly-CSharp
+          m_MethodName: NavigateMap
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 7765180758056063659}
+            m_ObjectArgumentAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &8214901083305686301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440481817699136213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19ca755e3154509469b938e6b5e6ae4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMap: {fileID: 0}
 --- !u!1 &440481818719722037
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,6 +179,7 @@ GameObject:
   - component: {fileID: 440481818719722034}
   - component: {fileID: 440481818719722032}
   - component: {fileID: 440481818719722035}
+  - component: {fileID: 2420436011552243191}
   m_Layer: 5
   m_Name: Platzees Image Loadier
   m_TagString: Untagged
@@ -215,6 +246,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2420436011552243191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440481818719722037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43d75a38ece27e24787902f7ec636de0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 7765180758056063659}
 --- !u!1 &440481819197943738
 GameObject:
   m_ObjectHideFlags: 0

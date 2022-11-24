@@ -5,10 +5,13 @@ using UnityEngine;
 public class Menu : MonoBehaviour
 {
     [SerializeField] public GameObject menu;
-
+    [SerializeField] public GameObject map;
+   
     private void Start()
     {
         menu.SetActive(false);
+        map.SetActive(false);
+      
     }
     private void Update()
     {
@@ -27,6 +30,7 @@ public class Menu : MonoBehaviour
                 Time.timeScale = 0f;
             }
         }
+
     }
     public void Resume()
     {

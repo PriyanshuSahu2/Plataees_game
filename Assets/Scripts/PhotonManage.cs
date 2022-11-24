@@ -12,14 +12,14 @@ public class PhotonManage : MonoBehaviour
     void Start()
     {
         pv = GetComponent<PhotonView>();
-        cam = Camera.main;
+      
         if (!pv.IsMine)
         {
             Destroy(cam);
             Destroy(cinemachineVirtualCamera);
             Destroy(playerRoot);
         }
-        cinemachineVirtualCamera.LookAt = playerRoot.transform;
+       cinemachineVirtualCamera.LookAt = playerRoot.transform;
     }
 
     // Update is called once per frame

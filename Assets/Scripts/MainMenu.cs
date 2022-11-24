@@ -110,9 +110,14 @@ public class MainMenu : MonoBehaviour
     public void OnBackBtninProfilePanel()
     {
         i_Profile.SetActive(false);
+        i_customizePanel.SetActive(false);
         i_startPanel.SetActive(true);
     }
-
+    public void OnCustomizeBtn()
+    {
+        i_customizePanel.SetActive(true);
+        i_startPanel.SetActive(false);
+    }
     public void QuitBtn()
     {
         Application.Quit();

@@ -12,9 +12,11 @@ public class PlayerPlatzeesInfo : MonoBehaviour
     [SerializeField] GameObject leftParent;
     [SerializeField] RectTransform scrollContainer;
     public static string[] myPlatzees;
+    public static List<Texture> myPlatzeesTexture = new List<Texture>();
+    public bool isDistrict = false;
     private void OnEnable()
     {
-        if (PlayerPrefs.GetString("Account") != "")
+        if (PlayerPrefs.GetString("Account", "0x5829081B71eaf16d4563121275a285df1843f191") != "")
         {
             CallSmartContract();
         }
@@ -39,18 +41,29 @@ public class PlayerPlatzeesInfo : MonoBehaviour
             // array of arguments for contract
             //setThis Argument to Player.pref()
             //setThis Argument to Player.pref()
-            string args = $"[\"{PlayerPrefs.GetString("Account")}\"]";
+            string args = $"[\"0x5829081B71eaf16d4563121275a285df1843f191\"]";
 
             // connects to user's browser wallet to call a transaction
             var response = await EVM.Call(chain, network, contract, abi, method, args);
              platzees = response.Split(',');
+        platzees[0] = "12";
         foreach(string plat in platzees)
         {
-           string s = plat.Replace("[", "");
-           s= s.Replace(@"""","");
+            string s = plat.Replace("[", "");
+            s = s.Replace(@"""", "");
             s = s.Replace("]", "");
-           
-            GetImages(s);
+            if (!isDistrict)
+            {
+                
+                GetImages(s);
+            }
+            else
+            {
+                if (GameObject.Find(s))
+                {
+                    GetImages(s);
+                }
+            }
         }
             // display response in game
            // print(response);
@@ -71,6 +84,8 @@ public class PlayerPlatzeesInfo : MonoBehaviour
         string uri = $"https://platzees.mypinata.cloud/ipfs/QmYzo4hhMq75HGCoi5UxCz1NNX7GXLpbvyhmehhAw8fQqk/{platNum}.PNG";
         // img.Replace("ipfs://", link);
         Image images = Instantiate(rawImages, transform.position, transform.rotation, leftParent.transform);
+        Debug.Log(images);
+        images.GetComponent<PlatzeeNames>().setText(platNum);
         RawImage rawI = images.GetComponentInChildren<RawImage>();
         
         StartCoroutine(DownloadImage(uri, rawI));
@@ -85,6 +100,7 @@ public class PlayerPlatzeesInfo : MonoBehaviour
         else
         {
             img.texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
+            myPlatzeesTexture.Add(img.texture);
             img.transform.parent.gameObject.SetActive(true);
         }
     }

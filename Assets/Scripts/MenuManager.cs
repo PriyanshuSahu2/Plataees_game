@@ -9,27 +9,34 @@ public class MenuManager : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
     [SerializeField] TMP_Text Loading;
+
     [SerializeField] Button startBtn;
 	
 	bool isConnecting;
 
 	string gameVersion = "1";
 
-	[SerializeField] GameObject spalshScreen; 
+	[SerializeField] GameObject loadingPanel; 
+	[SerializeField] Image loadingBar; 
 
 
 	void Awake()
 	{
 
-		PhotonNetwork.AutomaticallySyncScene = false;
+		
 		Invoke("CloseSpalsh", 5f);
 
 	}
 
-
-	void CloseSpalsh()
+    private void Start()
     {
-		spalshScreen.SetActive(false);
+		PhotonNetwork.ConnectUsingSettings();
+		PhotonNetwork.GameVersion = this.gameVersion;
+	}
+
+    void CloseSpalsh()
+    {
+		//spalshScreen.SetActive(false);
 
 	}
 
@@ -45,14 +52,14 @@ public class MenuManager : MonoBehaviourPunCallbacks
 
 		if (PhotonNetwork.IsConnected)
 		{
-			PhotonNetwork.JoinRandomRoom();
+			PhotonNetwork.JoinRandomOrCreateRoom();
 		}
 		else
 		{
-
-			// #Critical, we must first and foremost connect to Photon Online Server.
 			PhotonNetwork.ConnectUsingSettings();
 			PhotonNetwork.GameVersion = this.gameVersion;
+			// #Critical, we must first and foremost connect to Photon Online Server.
+
 		}
 	}
 
@@ -70,40 +77,38 @@ public class MenuManager : MonoBehaviourPunCallbacks
 			
 			Debug.Log("PUN Basics Tutorial/Launcher: OnConnectedToMaster() was called by PUN. Now this client is connected and could join a room.\n Calling: PhotonNetwork.JoinRandomRoom(); Operation will fail if no room found");
 
-			PhotonNetwork.JoinRandomRoom();
+			PhotonNetwork.JoinRandomOrCreateRoom();
 		}
 	}
 
 
 	public override void OnJoinRandomFailed(short returnCode, string message)
 	{
-		PhotonNetwork.CreateRoom(null);
+		Debug.LogError(message);
+
+		//PhotonNetwork.CreateRoom(null,new Photon.Realtime.RoomOptions { IsOpen = true });
 	}
 
 
 	public override void OnJoinedRoom()
 	{
-
-		
-		if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
-		{
-			Debug.Log("We load the 'Room for 1' ");
-
+		Debug.Log(PhotonNetwork.CountOfPlayers);
+		loadingPanel.SetActive(true);
 			StartCoroutine(LoadLevel(1));
-			
-		}
 	}
 
 	public IEnumerator LoadLevel(int levelIndex)
 	{
 		PhotonNetwork.LoadLevel(levelIndex);
+
 		while (PhotonNetwork.LevelLoadingProgress < 1)
 		{
+			loadingBar.fillAmount = PhotonNetwork.LevelLoadingProgress +0.1f;
 			yield return new WaitForEndOfFrame();
 		}
 		//LoadingMenu.SetActive(false);
 		
-		PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), new Vector3(1397.821f, 102.4f, 593.1f), Quaternion.identity);
+		//PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), new Vector3(1397.821f, 102.4f, 593.1f), Quaternion.identity);
 	}
 
 

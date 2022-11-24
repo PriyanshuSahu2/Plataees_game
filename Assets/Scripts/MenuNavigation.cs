@@ -16,6 +16,7 @@ public class MenuNavigation : MonoBehaviour
     [SerializeField] GameObject SignUp;
     [SerializeField] GameObject Setting;
     [SerializeField] GameObject StartMenu;
+    [SerializeField] GameObject Customization;
     EventSystem eventSystem;
 
     int i = 0;
