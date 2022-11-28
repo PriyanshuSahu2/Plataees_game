@@ -4,17 +4,34 @@ using UnityEngine;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
+    [SerializeField] GameObject inGamecontrolPanel;
+    [SerializeField] GameObject controlPanel;
     [SerializeField] GameObject map;
+    [SerializeField] float countDown = 15;
   
     public static bool gameIsPaused = false;
     private void Start()
     {
+        inGamecontrolPanel.SetActive(true);
         pauseMenu.SetActive(false);
         map.SetActive(false);
 
     }
+    
     void Update()
     {
+        if (inGamecontrolPanel.activeSelf)
+        {
+            if (countDown <= 0)
+            {
+                inGamecontrolPanel.SetActive(false);
+
+            }
+            else
+            {
+                countDown -= Time.deltaTime;
+            }
+        }
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) 
         { 
            
@@ -58,6 +75,28 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1;
         Application.Quit();
+    }
+    public void onMapBtn()
+    {
+        pauseMenu.SetActive(false);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
+        map.SetActive(true);
+        Time.timeScale = 0f;
+    }
+    public void onControlBtn()
+    {
+        pauseMenu.SetActive(false);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
+        controlPanel.SetActive(true);
+        Time.timeScale = 0f;
+    }
+    public void onBackBtn()
+    {
+        pauseMenu.SetActive(true);
+        map.SetActive(false);
+        controlPanel.SetActive(false);
     }
 
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class PlayerPlatzeesInfo : MonoBehaviour
 {
     [SerializeField] TMP_Text text;
@@ -16,15 +17,27 @@ public class PlayerPlatzeesInfo : MonoBehaviour
     public bool isDistrict = false;
     private void OnEnable()
     {
-        if (PlayerPrefs.GetString("Account", "0x5829081B71eaf16d4563121275a285df1843f191") != "")
+        if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            CallSmartContract();
+
+
+            if (PlayerPrefs.GetString("Account", "") != "")
+            {
+                CallSmartContract();
+            }
         }
        
     }
     private void Start()
     {
-       //GetImages("89");
+        if (SceneManager.GetActiveScene().buildIndex != 0)
+        {
+
+            if (PlayerPrefs.GetString("Account", "") != "")
+            {
+                CallSmartContract();
+            }
+        }
     }
    public async void CallSmartContract()
     {
@@ -84,8 +97,8 @@ public class PlayerPlatzeesInfo : MonoBehaviour
         string uri = $"https://platzees.mypinata.cloud/ipfs/QmYzo4hhMq75HGCoi5UxCz1NNX7GXLpbvyhmehhAw8fQqk/{platNum}.PNG";
         // img.Replace("ipfs://", link);
         Image images = Instantiate(rawImages, transform.position, transform.rotation, leftParent.transform);
-        Debug.Log(images);
-        images.GetComponent<PlatzeeNames>().setText(platNum);
+
+            images.GetComponent<PlatzeeNames>().setText(platNum);
         RawImage rawI = images.GetComponentInChildren<RawImage>();
         
         StartCoroutine(DownloadImage(uri, rawI));

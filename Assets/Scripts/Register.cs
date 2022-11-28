@@ -96,7 +96,7 @@ public class Register : MonoBehaviour
         userData.password = password.text;
         userData.email = email.text;
         userData.nick_name = first_name.text+user_name+last_name;
-        userData.wallet = first_name.text + DOB + last_name;
+        userData.wallet = first_name.text + DOB + last_name+ user_name;
         userData.genderId = genderId.isOn ? "1" : "2";
 
         /* form.AddField("languageId", 1);

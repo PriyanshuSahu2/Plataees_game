@@ -7,9 +7,11 @@ public class MapNavigationRef : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] DistanceCalculate playerMap;
+    [SerializeField] GameObject map;
     void Start()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
+        map = GameObject.Find("FullMap");
         if (player!=null)
         {
 
@@ -28,8 +30,13 @@ public class MapNavigationRef : MonoBehaviour
         {
             string s = address.text;
             s = s.Split("#")[1];
+            
             GameObject currTarget = GameObject.Find(s);
             playerMap.currTarget = currTarget;
+            map.SetActive(false);
+            Time.timeScale = 1f;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
     }

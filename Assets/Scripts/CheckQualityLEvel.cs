@@ -13,6 +13,7 @@ public class CheckQualityLEvel : MonoBehaviour
     int qualityLevel;
     void Start()
     {
+        QualitySettings.SetQualityLevel(5);
         qualityLevel = QualitySettings.GetQualityLevel();
         displayCurrentQuality.text = qualityLevel.ToString();
 

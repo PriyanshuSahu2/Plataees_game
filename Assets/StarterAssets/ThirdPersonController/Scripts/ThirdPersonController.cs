@@ -109,7 +109,7 @@ namespace StarterAssets
         private const float _threshold = 0.01f;
 
         private bool _hasAnimator;
-
+        private bool doubleJump=false;
         private bool IsCurrentDeviceMouse
         {
             get
@@ -289,11 +289,12 @@ namespace StarterAssets
 
         private void JumpAndGravity()
         {
-            if (Grounded)
+            if (Grounded )
             {
                 // reset the fall timeout timer
+                doubleJump = true;
                 _fallTimeoutDelta = FallTimeout;
-
+                
                 // update animator if using character
                 if (_hasAnimator)
                 {
@@ -325,10 +326,15 @@ namespace StarterAssets
                 {
                     _jumpTimeoutDelta -= Time.deltaTime;
                 }
+                else
+                {
+                   
+                }
             }
             else
             {
                 // reset the jump timeout timer
+                
                 _jumpTimeoutDelta = JumpTimeout;
 
                 // fall timeout
@@ -346,6 +352,21 @@ namespace StarterAssets
                 }
 
                 // if we are not grounded, do not jump
+                if (Input.GetKeyDown(KeyCode.Space) && doubleJump)
+                {
+
+                    // Jump
+                     doubleJump = false;
+                        // the square root of H * -2 * G = how much velocity needed to reach desired height
+                        _verticalVelocity = Mathf.Sqrt((JumpHeight+2f) * -2f * Gravity);
+
+                        // update animator if using character
+                        if (_hasAnimator)
+                        {
+                            _animator.SetBool(_animIDJump, true);
+                        }
+                    
+                }
                 _input.jump = false;
             }
 

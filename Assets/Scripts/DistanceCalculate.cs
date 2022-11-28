@@ -23,6 +23,12 @@ public class DistanceCalculate : MonoBehaviour
             Vector3 targetPos = currTarget.transform.position;
             targetPos.y = arrow.transform.position.y;
             arrow.transform.LookAt(targetPos);
+
+            if (Vector3.Distance(arrow.transform.position, targetPos) < 10f)
+            {
+                arrow.SetActive(false);
+                currTarget = null;
+            }
            
         }
     }

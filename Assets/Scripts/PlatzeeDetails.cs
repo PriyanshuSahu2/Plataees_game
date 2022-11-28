@@ -34,7 +34,7 @@ public class PlatzeeDetails : MonoBehaviour
                 detailsPanel.SetActive(false);
             }
         }
-        if(detailsPanel.activeSelf && Input.GetKeyDown(KeyCode.M))
+        if(detailsPanel.activeSelf && Input.GetKeyDown(KeyCode.I))
         {
             string url = $"https://rarible.com/token/polygon/0xfec50dae05902f4a1c303da8fb7477f7dea751d5:{hit.transform.parent.name}?tab=overview";
             Application.OpenURL(url);
