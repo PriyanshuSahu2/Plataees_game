@@ -26,6 +26,7 @@ public class PlayerData :ScriptableObject
         nick_name = loginUserData.nick_name;
         token = loginUserData.token;
         genderId = loginUserData.genderId;
+
         Debug.Log(name + " " + last_name);
     }
 

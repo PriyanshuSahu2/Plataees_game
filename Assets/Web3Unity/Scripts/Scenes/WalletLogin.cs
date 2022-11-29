@@ -34,10 +34,11 @@ public class WalletLogin: MonoBehaviour
         string account = await EVM.Verify(message, signature);
         int now = (int)(System.DateTime.UtcNow.Subtract(new System.DateTime(1970, 1, 1))).TotalSeconds;
         // validate
-        tex.text = account;
+        
         if (account.Length == 42 && expirationTime >= now) {
             // save account
             PlayerPrefs.SetString("Account", account);
+            Debug.Log(account);
             profilePanel.CallSmartContract();
         }
     }

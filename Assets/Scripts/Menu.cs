@@ -9,6 +9,8 @@ public class Menu : MonoBehaviour
    
     private void Start()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         menu.SetActive(false);
         map.SetActive(false);
       
@@ -20,7 +22,7 @@ public class Menu : MonoBehaviour
             if (menu.activeSelf)
             {
                 menu.SetActive(false);
-            Time.timeScale = 1f;
+                Time.timeScale = 1f;
             }
             else
             {

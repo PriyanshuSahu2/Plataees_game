@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine.Networking;
 using System.Collections;
 using System;
-
+using UnityEngine.UI;
 
 public class Login : MonoBehaviour
 {
@@ -15,6 +15,27 @@ public class Login : MonoBehaviour
     private LoginUserData loginUserData;
     private LoginStatus loginStatus;
     [SerializeField] PlayerData playerData;
+
+    public void onShowHideToggle(TMP_InputField text)
+    {
+        TMP_Text showHideButtonLogin = text.gameObject.transform.Find("Button").GetComponentInChildren<TMP_Text>(); ;
+        var temp = text.text;
+        if(text.contentType == TMP_InputField.ContentType.Standard)
+        {
+            text.contentType = TMP_InputField.ContentType.Password;
+            showHideButtonLogin.text = "SHOW";
+            text.text = temp;
+        }
+        else
+        {
+            text.contentType = TMP_InputField.ContentType.Standard;
+            showHideButtonLogin.text = "HIDE";
+            text.text = temp;
+        }
+        text.Select();
+        text.ActivateInputField();
+        text.onFocusSelectAll = false;
+    }
     public void OnLoginButton()
     {
         loginWithEmailPass = new LoginWithEmailPass();
@@ -26,6 +47,7 @@ public class Login : MonoBehaviour
         loginWithEmailPass.password = password.text;
         StartCoroutine(LoginUser_Coroutine());
         
+       
     }
     IEnumerator LoginUser_Coroutine()
     {
@@ -54,9 +76,12 @@ public class Login : MonoBehaviour
 
                 PlayerPrefs.SetString("Token", loginStatus.body.data.token);
                 playerData.SetPlayerInfo(loginStatus.body.data);
+
+                PlayerPrefs.SetString("PlayerName", loginStatus.body.data.user_name);
                 
                 errorMessageText.text = "Login Successful Please Wait";
                 errorMessageText.color = Color.green;
+
                 mainMenu.onLoginBtn();
             }
             else

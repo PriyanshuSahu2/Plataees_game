@@ -9,7 +9,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
    
     private void Awake()
     {
-       // PhotonNetwork.KeepAliveInBackground = 120000;
+        PhotonNetwork.KeepAliveInBackground = 160000;
         if (_instance)
         {
             Destroy(gameObject);

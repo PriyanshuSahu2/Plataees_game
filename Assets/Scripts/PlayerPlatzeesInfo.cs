@@ -54,12 +54,12 @@ public class PlayerPlatzeesInfo : MonoBehaviour
             // array of arguments for contract
             //setThis Argument to Player.pref()
             //setThis Argument to Player.pref()
-            string args = $"[\"0x5829081B71eaf16d4563121275a285df1843f191\"]";
+            string args = $"[\"{PlayerPrefs.GetString("Account", "")}\"]";
 
             // connects to user's browser wallet to call a transaction
             var response = await EVM.Call(chain, network, contract, abi, method, args);
              platzees = response.Split(',');
-        platzees[0] = "12";
+      
         foreach(string plat in platzees)
         {
             string s = plat.Replace("[", "");

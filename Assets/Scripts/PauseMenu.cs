@@ -6,6 +6,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject inGamecontrolPanel;
     [SerializeField] GameObject controlPanel;
+    [SerializeField] GameObject chatPanel;
     [SerializeField] GameObject map;
     [SerializeField] float countDown = 15;
   
@@ -32,7 +33,15 @@ public class PauseMenu : MonoBehaviour
                 countDown -= Time.deltaTime;
             }
         }
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) 
+        if (chatPanel.activeSelf)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                chatPanel.SetActive(false);
+            }
+            return;
+        }
+        if (Input.GetKeyDown(KeyCode.Escape)) 
         { 
            
             if (pauseMenu.activeSelf)

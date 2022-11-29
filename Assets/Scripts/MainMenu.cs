@@ -10,8 +10,10 @@ public class MainMenu : MonoBehaviour
     [SerializeField] GameObject i_loginPanel;
     [SerializeField] GameObject i_registerPanel;
     [SerializeField] GameObject i_startPanel;
+    [SerializeField] GameObject i_customizeWorld;
     [SerializeField] GameObject i_customizePanel;
     [SerializeField] GameObject i_ForgotPassword;
+    [SerializeField] GameObject i_updatepanel;
 
     [Header("Loading Bar Settings")]
     [SerializeField] Image i_LoadingBar;
@@ -111,11 +113,20 @@ public class MainMenu : MonoBehaviour
     {
         i_Profile.SetActive(false);
         i_customizePanel.SetActive(false);
+        i_customizeWorld.SetActive(false);
         i_startPanel.SetActive(true);
+        i_updatepanel.SetActive(false);
     }
     public void OnCustomizeBtn()
     {
         i_customizePanel.SetActive(true);
+        
+        i_startPanel.SetActive(false);
+    }
+    public void OnUpdateBtn()
+    {
+        i_updatepanel.SetActive(true);
+        
         i_startPanel.SetActive(false);
     }
     public void QuitBtn()

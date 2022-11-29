@@ -16,6 +16,7 @@ public class ProfilePanel : MonoBehaviour
     [SerializeField] Toggle[] genders;
     [SerializeField] GameObject[] genderImages;
     [SerializeField] UpdateData updateData ;
+    [SerializeField] string walletData;
     private void Start()
     {
         eventSystem = EventSystem.current;
@@ -26,6 +27,7 @@ public class ProfilePanel : MonoBehaviour
         name.text = PlayerData.name+" "+ PlayerData.last_name;
         email.text = PlayerData.email;
         username.text = PlayerData.user_name;
+        walletData = PlayerData.wallet;
         if(PlayerData.genderId == "1")
         {
             genders[0].isOn = true;
@@ -84,6 +86,7 @@ public class ProfilePanel : MonoBehaviour
         else
         {
            string res = req.downloadHandler.text;
+
            Debug.Log(res);
         }
     }
@@ -95,6 +98,7 @@ public class ProfilePanel : MonoBehaviour
         updateData.email = email.text;
         updateData.user_name = username.text;
         updateData.password = password.text;
+        updateData.wallet = PlayerPrefs.GetString("Account","")==""?walletData: PlayerPrefs.GetString("Account", "");
         if (genders[0].isOn)
         {
             updateData.genderId = "1";
@@ -114,4 +118,5 @@ class UpdateData
     public string password;
     public string email;
     public string genderId;
+    public string wallet;
 }
