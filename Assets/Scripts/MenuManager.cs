@@ -52,6 +52,7 @@ public class MenuManager : MonoBehaviourPunCallbacks
 
 		if (PhotonNetwork.IsConnected)
 		{
+			
 			PhotonNetwork.JoinRandomOrCreateRoom();
 		}
 		else

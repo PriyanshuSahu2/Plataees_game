@@ -47,7 +47,15 @@ public class MainMenu : MonoBehaviour
 
             if (splashScreenTimer <= 0)
             {
-                i_loginPanel.SetActive(true);
+                if (PlayerPrefs.GetString("LogIn", "") == "")
+                {
+                    i_loginPanel.SetActive(true);
+                }
+                else
+                {
+                    onLoginBtn();
+                }
+               
                 i_LoadingPanel.SetActive(false);
                 isFirst = false;
             }
@@ -131,6 +139,7 @@ public class MainMenu : MonoBehaviour
     }
     public void QuitBtn()
     {
+        PlayerPrefs.DeleteAll();
         Application.Quit();
     }
     #endregion

@@ -15,15 +15,17 @@ public class PlayerPlatzeesInfo : MonoBehaviour
     public static string[] myPlatzees;
     public static List<Texture> myPlatzeesTexture = new List<Texture>();
     public bool isDistrict = false;
+    bool isOpened = false;
     private void OnEnable()
     {
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
 
 
-            if (PlayerPrefs.GetString("Account", "") != "")
+            if (PlayerPrefs.GetString("Account", "") != "" && isOpened==false)
             {
                 CallSmartContract();
+                isOpened = true;
             }
         }
        

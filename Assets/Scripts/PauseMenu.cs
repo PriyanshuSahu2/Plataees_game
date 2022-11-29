@@ -1,6 +1,9 @@
+using Photon.Pun;
+using System.Collections;
 using TMPro;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
@@ -9,10 +12,15 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] GameObject chatPanel;
     [SerializeField] GameObject map;
     [SerializeField] float countDown = 15;
-  
+    [SerializeField] GameObject loadingPanel;
+    [SerializeField] Image loadingBar;
     public static bool gameIsPaused = false;
+    [SerializeField] GameObject cam;
     private void Start()
     {
+        cam.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         inGamecontrolPanel.SetActive(true);
         pauseMenu.SetActive(false);
         map.SetActive(false);
@@ -82,8 +90,12 @@ public class PauseMenu : MonoBehaviour
     }
     public void onQuitBtn()
     {
+        cam.SetActive(true);
         Time.timeScale = 1;
-        Application.Quit();
+        loadingPanel.SetActive(true);
+        PhotonNetwork.Disconnect();
+        StartCoroutine(LoadLevel(0));
+        
     }
     public void onMapBtn()
     {
@@ -106,6 +118,19 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(true);
         map.SetActive(false);
         controlPanel.SetActive(false);
+    }
+    public IEnumerator LoadLevel(int levelIndex)
+    {
+        var i = SceneManager.LoadSceneAsync(0);
+
+        while (i.progress < 1)
+        {
+            loadingBar.fillAmount = i.progress + 0.1f;
+            yield return new WaitForEndOfFrame();
+        }
+        //LoadingMenu.SetActive(false);
+
+        //PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), new Vector3(1397.821f, 102.4f, 593.1f), Quaternion.identity);
     }
 
 }

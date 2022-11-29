@@ -78,7 +78,7 @@ public class Login : MonoBehaviour
                 playerData.SetPlayerInfo(loginStatus.body.data);
 
                 PlayerPrefs.SetString("PlayerName", loginStatus.body.data.user_name);
-                
+                PlayerPrefs.SetString("LogIn", "true");
                 errorMessageText.text = "Login Successful Please Wait";
                 errorMessageText.color = Color.green;
 
