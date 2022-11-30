@@ -139,7 +139,7 @@ public class MainMenu : MonoBehaviour
     }
     public void QuitBtn()
     {
-        PlayerPrefs.DeleteAll();
+        
         Application.Quit();
     }
     #endregion

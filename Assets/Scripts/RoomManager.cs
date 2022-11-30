@@ -38,8 +38,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
     }
 
     void Start()
-    {
-
+    {   
+        PlayerPrefs.DeleteKey("LogIn");
     }
 
     // Update is called once per frame

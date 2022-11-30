@@ -22,7 +22,25 @@ public class CharacterCustomization : MonoBehaviour
     [SerializeField] GameObject currentPos;
     void Start()
     {
-        
+  
+
+        skinMaterial.color =convertStringToColor(PlayerPrefs.GetString("SkinColor",skinMaterial.color.ToString()));
+        hairMaterial.color =convertStringToColor(PlayerPrefs.GetString("HairColor", hairMaterial.color.ToString()));
+        shirtMaterial.color =convertStringToColor(PlayerPrefs.GetString("ShirtColor", shirtMaterial.color.ToString()));
+        pantMaterial.color =convertStringToColor(PlayerPrefs.GetString("PantColor", pantMaterial.color.ToString()));
+        eyeMaterial.color =convertStringToColor(PlayerPrefs.GetString("EyeColor", eyeMaterial.color.ToString()));
+    }
+    public Color convertStringToColor(string col)
+    {
+       col =  col.Replace("RGBA(", "");
+        col = col.Replace(")", "");
+        var colorValue = col.Split(",");
+        Color color = new Color();
+        color.r = float.Parse(colorValue[0]) ;
+        color.g = float.Parse(colorValue[1]) ;
+        color.b = float.Parse(colorValue[2]) ;
+        color.a = 1f ;
+        return color;
     }
 
     public void skinchangeColor()
@@ -31,8 +49,10 @@ public class CharacterCustomization : MonoBehaviour
 
         GameObject btn = EventSystem.current.currentSelectedGameObject;
         // changeCam(skinCam);
-   
+            
         skinMaterial.color = btn.GetComponent<Button>().colors.normalColor;
+     
+        PlayerPrefs.SetString("SkinColor", ColorUtility.ToHtmlStringRGBA(skinMaterial.color));
     }
     public void hairchangeColor()
     {
@@ -41,6 +61,7 @@ public class CharacterCustomization : MonoBehaviour
         GameObject btn = EventSystem.current.currentSelectedGameObject;
         // changeCam(hairCam);
          hairMaterial.color = btn.GetComponent<Button>().colors.normalColor;
+        PlayerPrefs.SetString("HairColor", ColorUtility.ToHtmlStringRGBA(skinMaterial.color));
     }
     public void shirtchangeColor()
     {
@@ -48,6 +69,7 @@ public class CharacterCustomization : MonoBehaviour
         GameObject btn = EventSystem.current.currentSelectedGameObject;
        // changeCam(shirtCam);
         shirtMaterial.color = btn.GetComponent<Button>().colors.normalColor;
+        PlayerPrefs.SetString("ShirtColor", ColorUtility.ToHtmlStringRGBA(skinMaterial.color));
 
     }
     public void pantchangeColor()
@@ -57,6 +79,7 @@ public class CharacterCustomization : MonoBehaviour
         GameObject btn = EventSystem.current.currentSelectedGameObject;
        // changeCam(pantCam);
         pantMaterial.color = btn.GetComponent<Button>().colors.normalColor;
+        PlayerPrefs.SetString("PantColor", ColorUtility.ToHtmlStringRGBA(skinMaterial.color));
 
     }
     public void eyechangeColor()
@@ -64,6 +87,7 @@ public class CharacterCustomization : MonoBehaviour
         GameObject btn = EventSystem.current.currentSelectedGameObject;
        // changeCam(eyeCam);
         eyeMaterial.color = btn.GetComponent<Button>().colors.normalColor;
+        PlayerPrefs.SetString("EyeColor", ColorUtility.ToHtmlStringRGBA(skinMaterial.color));
 
     }
     public void changeCam(GameObject currCam)
