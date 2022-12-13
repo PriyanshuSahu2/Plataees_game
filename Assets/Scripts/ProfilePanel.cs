@@ -17,6 +17,8 @@ public class ProfilePanel : MonoBehaviour
     [SerializeField] GameObject[] genderImages;
     [SerializeField] UpdateData updateData ;
     [SerializeField] string walletData;
+
+    [SerializeField] PlayerData playerData;
     private void Start()
     {
         eventSystem = EventSystem.current;
@@ -66,11 +68,13 @@ public class ProfilePanel : MonoBehaviour
         updateData = new UpdateData();
         InitializeData();
         StartCoroutine(PlayerUpdate_Coroutine());
+
     }
     IEnumerator PlayerUpdate_Coroutine()
     {
         string uri = "https://apiplatzeeland.platzees.io/api/update";
         var json =JsonUtility.ToJson(updateData);
+        Debug.Log(json);
         UnityWebRequest req = new UnityWebRequest(uri, "PUT");
         byte[] rawData = System.Text.Encoding.UTF8.GetBytes(json);
         req.uploadHandler = new UploadHandlerRaw(rawData);
@@ -88,7 +92,35 @@ public class ProfilePanel : MonoBehaviour
            string res = req.downloadHandler.text;
 
            Debug.Log(res);
+           playerData.GetPlayerInfo();
         }
+    }
+
+    IEnumerator PlayerGenderUpdate()
+    {
+        string uri = "https://apiplatzeeland.platzees.io/api/update"  + "/catalog/gender";
+        var json = JsonUtility.ToJson(updateData);
+        Debug.Log(json);
+        UnityWebRequest req = new UnityWebRequest(uri, "PUT");
+        byte[] rawData = System.Text.Encoding.UTF8.GetBytes(json);
+        req.uploadHandler = new UploadHandlerRaw(rawData);
+        req.downloadHandler = new DownloadHandlerBuffer();
+
+        req.SetRequestHeader("Content-Type", "application/json");
+        req.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("Token"));
+        yield return req.SendWebRequest();
+        if (req.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(req.error);
+        }
+        else
+        {
+            string res = req.downloadHandler.text;
+
+            Debug.Log(res);
+            playerData.GetPlayerInfo();
+        }
+
     }
     void InitializeData()
     {
@@ -102,9 +134,11 @@ public class ProfilePanel : MonoBehaviour
         if (genders[0].isOn)
         {
             updateData.genderId = "1";
+            Debug.Log("SKSA");
         }
         else
         {
+            Debug.Log("asda");
             updateData.genderId = "0";
         }
     }

@@ -95,8 +95,13 @@ public class MenuManager : MonoBehaviourPunCallbacks
 	{
 		Debug.Log(PhotonNetwork.CountOfPlayers);
 		loadingPanel.SetActive(true);
-			StartCoroutine(LoadLevel(1));
+
+		StartCoroutine(LoadLevel(1));
 	}
+	public void GetPlayerData()
+    {
+		
+    }
 
 	public IEnumerator LoadLevel(int levelIndex)
 	{

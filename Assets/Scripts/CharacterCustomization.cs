@@ -6,12 +6,28 @@ using UnityEngine.EventSystems;
 public class CharacterCustomization : MonoBehaviour
 {
     // Start is called before the first frame update
-  
-    [SerializeField] Material skinMaterial;
-    [SerializeField] Material hairMaterial;
-    [SerializeField] Material shirtMaterial;
-    [SerializeField] Material pantMaterial;
-    [SerializeField] Material eyeMaterial;
+     Material skinMaterial;
+     Material hairMaterial;
+     Material shirtMaterial;
+     Material pantMaterial;
+     Material eyeMaterial;
+
+
+    [Header("Male  ")]
+    [SerializeField] GameObject MaleCharacter;
+    [SerializeField] Material MskinMaterial;
+    [SerializeField] Material MhairMaterial;
+    [SerializeField] Material MshirtMaterial;
+    [SerializeField] Material MpantMaterial;
+    [SerializeField] Material MeyeMaterial;
+    [Header("Female ")]
+    [SerializeField] GameObject FemaleCharacter;
+    [SerializeField] Material FskinMaterial;
+    [SerializeField] Material FhairMaterial;
+    [SerializeField] Material FshirtMaterial;
+    [SerializeField] Material FpantMaterial;
+    [SerializeField] Material FeyeMaterial;
+
     [SerializeField] GameObject mainCam;
 
     [SerializeField] GameObject[] cam;
@@ -20,15 +36,40 @@ public class CharacterCustomization : MonoBehaviour
     [SerializeField] GameObject[] colorPanels;
     GameObject targetPos;
     [SerializeField] GameObject currentPos;
+
+    
     void Start()
     {
-  
-
+ 
         skinMaterial.color =convertStringToColor(PlayerPrefs.GetString("SkinColor",skinMaterial.color.ToString()));
         hairMaterial.color =convertStringToColor(PlayerPrefs.GetString("HairColor", hairMaterial.color.ToString()));
         shirtMaterial.color =convertStringToColor(PlayerPrefs.GetString("ShirtColor", shirtMaterial.color.ToString()));
         pantMaterial.color =convertStringToColor(PlayerPrefs.GetString("PantColor", pantMaterial.color.ToString()));
         eyeMaterial.color =convertStringToColor(PlayerPrefs.GetString("EyeColor", eyeMaterial.color.ToString()));
+    }
+    private void OnEnable()
+    {
+        if (PlayerPrefs.GetString("PlayerGender") == "MPlayer")
+        {
+            skinMaterial = MskinMaterial;
+            hairMaterial = MhairMaterial;
+            pantMaterial = MpantMaterial;
+            eyeMaterial = MeyeMaterial;
+            shirtMaterial = MshirtMaterial;
+            MaleCharacter.SetActive(true);
+            FemaleCharacter.SetActive(false);
+
+        }
+        else
+        {
+            skinMaterial = FskinMaterial;
+            hairMaterial =FhairMaterial;
+            pantMaterial = FpantMaterial;
+            eyeMaterial =FeyeMaterial;
+            shirtMaterial = FshirtMaterial;
+            MaleCharacter.SetActive(false);
+            FemaleCharacter.SetActive(true);
+        }
     }
     public Color convertStringToColor(string col)
     {

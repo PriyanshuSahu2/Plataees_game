@@ -77,6 +77,7 @@ public class Login : MonoBehaviour
                 PlayerPrefs.SetString("Token", loginStatus.body.data.token);
                 playerData.SetPlayerInfo(loginStatus.body.data);
 
+                Debug.Log(loginStatus.body.data.token);
                 PlayerPrefs.SetString("PlayerName", loginStatus.body.data.user_name);
                 PlayerPrefs.SetString("LogIn", "true");
                 errorMessageText.text = "Login Successful Please Wait";
