@@ -1,11 +1,13 @@
 using UnityEngine;
 using Photon.Pun;
 using System.IO;
+
 public class PlayerManager : MonoBehaviourPunCallbacks
 {
    
     PhotonView Pv;
     GameObject spawnManager;
+   
     private void Awake()
     {
         Pv = GetComponent<PhotonView>();

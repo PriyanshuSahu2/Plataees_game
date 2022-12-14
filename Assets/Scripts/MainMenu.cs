@@ -10,10 +10,10 @@ public class MainMenu : MonoBehaviour
     [SerializeField] GameObject i_loginPanel;
     [SerializeField] GameObject i_registerPanel;
     [SerializeField] GameObject i_startPanel;
-    [SerializeField] GameObject i_customizeWorld;
     [SerializeField] GameObject i_customizePanel;
     [SerializeField] GameObject i_ForgotPassword;
     [SerializeField] GameObject i_updatepanel;
+    [SerializeField] GameObject i_SettingsPanel;
 
     [Header("Loading Bar Settings")]
     [SerializeField] Image i_LoadingBar;
@@ -91,7 +91,7 @@ public class MainMenu : MonoBehaviour
         i_registerPanel.SetActive(true);
         i_loginPanel.SetActive(false);
     }
-    public void onSettingBtn()
+    public void onCustomizeBtn()
     {
         i_startPanel.SetActive(false);
         i_customizePanel.SetActive(true);
@@ -119,16 +119,20 @@ public class MainMenu : MonoBehaviour
     }
     public void OnBackBtninProfilePanel()
     {
+        i_startPanel.SetActive(true);
         i_Profile.SetActive(false);
         i_customizePanel.SetActive(false);
-        i_customizeWorld.SetActive(false);
-        i_startPanel.SetActive(true);
         i_updatepanel.SetActive(false);
+        i_SettingsPanel.SetActive(false);
     }
     public void OnCustomizeBtn()
     {
         i_customizePanel.SetActive(true);
-        
+        i_startPanel.SetActive(false);
+    }
+    public void OnSettingsBtn()
+    {
+        i_SettingsPanel.SetActive(true);
         i_startPanel.SetActive(false);
     }
     public void OnUpdateBtn()

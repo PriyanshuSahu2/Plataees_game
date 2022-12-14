@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+using Cinemachine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
+
 #endif
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -75,6 +77,7 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
+        public CinemachineVirtualCamera cinemachineVirtualCamera;
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -125,6 +128,7 @@ namespace StarterAssets
 
         private void Awake()
         {
+            
             // get a reference to our main camera
             if (_mainCamera == null)
             {
@@ -135,7 +139,7 @@ namespace StarterAssets
         private void Start()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
-            
+            cinemachineVirtualCamera.m_Lens.FarClipPlane = PlayerPrefs.GetFloat("RenderDistance",500f);
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
@@ -154,10 +158,12 @@ namespace StarterAssets
 
         private void Update()
         {
+
             if (Time.timeScale == 0)
             {
                 return;
             }
+           
             _hasAnimator = TryGetComponent(out _animator);
 
             JumpAndGravity();
