@@ -29,7 +29,8 @@ public class Axis : MonoBehaviour
         // Debug.Log($"{player.transform.position.x - xAxis.transform.position.x} , {player.transform.position.z - yAxis.transform.position.z}");
         if (myPlayer)
         {
-            image.rectTransform.anchoredPosition = new Vector2(-(myPlayer.transform.position.x - xAxis.transform.position.x) /x, -(myPlayer.transform.position.z - yAxis.transform.position.z) / y);
+            Debug.Log(myPlayer.transform.position.x- xAxis.transform.position.x);
+            image.rectTransform.anchoredPosition = new Vector2((myPlayer.transform.position.z - yAxis.transform.position.z) / y, (myPlayer.transform.position.x - xAxis.transform.position.x) / x);
         }
     }
 }

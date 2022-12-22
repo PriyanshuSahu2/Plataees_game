@@ -65,11 +65,16 @@ public class Teleportaion : MonoBehaviour
         {
             havEntered = false;
         }
+        teleportationMenu.SetActive(false);
     }
     public void TeleportationLevel(int levelIndex)
     {
         //LoadingMenu.SetActive(true);
-         StartCoroutine(LoadLevel(levelIndex));
+        Debug.Log("Passed");
+      
+        StartCoroutine(LoadLevel(levelIndex));
+        m_ProgreesBar.fillAmount = 0;
+        LoadingMenu.SetActive(true);
     }
     public IEnumerator LoadLevel(int levelIndex)
     {
@@ -77,10 +82,10 @@ public class Teleportaion : MonoBehaviour
 
         while (PhotonNetwork.LevelLoadingProgress<1)
         {
-
+            m_ProgreesBar.fillAmount = PhotonNetwork.LevelLoadingProgress;
             yield return new WaitForEndOfFrame();
         }
-        //LoadingMenu.SetActive(false);
+        LoadingMenu.SetActive(false);
         // Debug.LogError("Not Stopped");
     }
     public void D()

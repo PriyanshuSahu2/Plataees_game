@@ -95,33 +95,6 @@ public class ProfilePanel : MonoBehaviour
            playerData.GetPlayerInfo();
         }
     }
-
-    IEnumerator PlayerGenderUpdate()
-    {
-        string uri = "https://apiplatzeeland.platzees.io/api/update"  + "/catalog/gender";
-        var json = JsonUtility.ToJson(updateData);
-        Debug.Log(json);
-        UnityWebRequest req = new UnityWebRequest(uri, "PUT");
-        byte[] rawData = System.Text.Encoding.UTF8.GetBytes(json);
-        req.uploadHandler = new UploadHandlerRaw(rawData);
-        req.downloadHandler = new DownloadHandlerBuffer();
-
-        req.SetRequestHeader("Content-Type", "application/json");
-        req.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("Token"));
-        yield return req.SendWebRequest();
-        if (req.result != UnityWebRequest.Result.Success)
-        {
-            Debug.Log(req.error);
-        }
-        else
-        {
-            string res = req.downloadHandler.text;
-
-            Debug.Log(res);
-            playerData.GetPlayerInfo();
-        }
-
-    }
     void InitializeData()
     {
       
@@ -139,7 +112,7 @@ public class ProfilePanel : MonoBehaviour
         else
         {
             Debug.Log("asda");
-            updateData.genderId = "0";
+            updateData.genderId = "2";
         }
     }
 }
