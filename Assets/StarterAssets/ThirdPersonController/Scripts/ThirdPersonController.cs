@@ -161,6 +161,7 @@ namespace StarterAssets
 
             if (Time.timeScale == 0)
             {
+                cinemachineVirtualCamera.m_Lens.FarClipPlane = PlayerPrefs.GetFloat("RenderDistance", 500f);
                 return;
             }
            

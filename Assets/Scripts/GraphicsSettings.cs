@@ -25,6 +25,7 @@ public class GraphicsSettings : MonoBehaviour
 
     [Header("")]
     [SerializeField] GameObject showFps;
+    [SerializeField] GameObject FPSMeter;
     void OnEnable()
     {
        GetResolutionSettings();
@@ -93,13 +94,15 @@ public class GraphicsSettings : MonoBehaviour
     #region -- ShowFps--
     private void GetShowFps()
     {
-        if (PlayerPrefs.GetInt("ShowFPS", 1)==1)
+        if (PlayerPrefs.GetInt("ShowFPS", 1)==0)
         {
             showFps.SetActive(true);
+            FPSMeter?.SetActive(true);
         }
         else
         {
             showFps.SetActive(false);
+            FPSMeter?.SetActive(false);
         }
     }
     public void SetShowFps()
@@ -107,10 +110,14 @@ public class GraphicsSettings : MonoBehaviour
         if (showFps.activeSelf)
         {
             PlayerPrefs.SetInt("ShowFPS", 1);
+            showFps.SetActive(false);
+            FPSMeter?.SetActive(false);
         }
         else
         {
             PlayerPrefs.SetInt("ShowFPS", 0);
+            showFps.SetActive(true);
+            FPSMeter?.SetActive(true);
         }
     }
     #endregion

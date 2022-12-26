@@ -7,6 +7,7 @@ public class PlatzeeDetails : MonoBehaviour
 {
     [SerializeField] GameObject check;
     [SerializeField] GameObject detailsPanel;
+    [SerializeField] GameObject TransportaionPanel;
     [SerializeField] TMP_Text platzeeName;
     [SerializeField] LayerMask layerMask;
     
@@ -26,6 +27,7 @@ public class PlatzeeDetails : MonoBehaviour
                 platzeeName.text ="Platzee #"+ hit.transform.parent.name;
                 detailsPanel.SetActive(true);
             }
+            
         }
         else
         {

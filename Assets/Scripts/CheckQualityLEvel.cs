@@ -16,6 +16,14 @@ public class CheckQualityLEvel : MonoBehaviour
         QualitySettings.SetQualityLevel(5);
         qualityLevel = QualitySettings.GetQualityLevel();
         displayCurrentQuality.text = qualityLevel.ToString();
+        if (PlayerPrefs.GetInt("ShowFPS",1) == 1)
+        {
+            this.gameObject.SetActive(true);
+        }
+        else
+        {
+            this.gameObject.SetActive(false);
+        }
 
     }
 

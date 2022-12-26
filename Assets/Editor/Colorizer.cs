@@ -26,8 +26,8 @@ public class Colorizer : EditorWindow
     }
     private void OnGUI()
     {
-        path = GUILayout.TextField(path);
-        if (GUILayout.Button("Select FOlder"))
+   
+        if (GUILayout.Button("Select Materials"))
         {
             int i = 0;
             foreach (Object o in Selection.objects)

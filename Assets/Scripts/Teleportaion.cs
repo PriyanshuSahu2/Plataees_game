@@ -13,7 +13,7 @@ public class Teleportaion : MonoBehaviour
     [SerializeField] GameObject teleportationMenu;
     [SerializeField] GameObject LoadingMenu;
     [SerializeField] Image m_ProgreesBar;
-    [SerializeField] GameObject teleportationPoint;
+    [SerializeField] GameObject teleportationPanel;
     bool havEntered = false;
 
     private void Awake()
@@ -57,6 +57,8 @@ public class Teleportaion : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             havEntered = true;
+            teleportationPanel.SetActive(true);
+
         }
     }
     private void OnTriggerExit(Collider other)
@@ -64,17 +66,20 @@ public class Teleportaion : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             havEntered = false;
+            teleportationPanel.SetActive(false);
         }
         teleportationMenu.SetActive(false);
     }
+   
     public void TeleportationLevel(int levelIndex)
     {
         //LoadingMenu.SetActive(true);
         Debug.Log("Passed");
-      
-        StartCoroutine(LoadLevel(levelIndex));
-        m_ProgreesBar.fillAmount = 0;
+        
         LoadingMenu.SetActive(true);
+        StartCoroutine(LoadLevel(levelIndex));
+        
+        
     }
     public IEnumerator LoadLevel(int levelIndex)
     {
@@ -86,6 +91,7 @@ public class Teleportaion : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         LoadingMenu.SetActive(false);
+        m_ProgreesBar.fillAmount = 0;
         // Debug.LogError("Not Stopped");
     }
     public void D()

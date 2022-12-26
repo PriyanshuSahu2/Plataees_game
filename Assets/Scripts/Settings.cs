@@ -33,7 +33,7 @@ public class Settings : MonoBehaviour
     {
         Sounds.SetActive(false);
         Controls.SetActive(false);
-        Graphics.SetActive(false);
+        Graphics.SetActive(true);
     }
     public void OnSoundBtn()
     {

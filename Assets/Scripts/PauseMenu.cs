@@ -8,7 +8,7 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject inGamecontrolPanel;
-    [SerializeField] GameObject controlPanel;
+    [SerializeField] GameObject settingsPanel;
     [SerializeField] GameObject chatPanel;
     [SerializeField] GameObject map;
     [SerializeField] float countDown = 15;
@@ -105,19 +105,19 @@ public class PauseMenu : MonoBehaviour
         map.SetActive(true);
         Time.timeScale = 0f;
     }
-    public void onControlBtn()
+    public void onSettingsBtn()
     {
         pauseMenu.SetActive(false);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
-        controlPanel.SetActive(true);
+        settingsPanel.SetActive(true);
         Time.timeScale = 0f;
     }
     public void onBackBtn()
     {
         pauseMenu.SetActive(true);
         map.SetActive(false);
-        controlPanel.SetActive(false);
+        settingsPanel.SetActive(false);
     }
     public IEnumerator LoadLevel(int levelIndex)
     {
