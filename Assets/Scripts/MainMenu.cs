@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
@@ -8,6 +10,7 @@ public class MainMenu : MonoBehaviour
     [Header("Main Menu Navigation")]
     [SerializeField] GameObject i_LoadingPanel;
     [SerializeField] GameObject i_loginPanel;
+    [SerializeField] GameObject VersionChecker;
     [SerializeField] GameObject i_registerPanel;
     [SerializeField] GameObject i_startPanel;
     [SerializeField] GameObject i_customizePanel;
@@ -28,11 +31,16 @@ public class MainMenu : MonoBehaviour
     [SerializeField] GameObject i_Tutorial;
     [SerializeField] GameObject i_Language;
     [SerializeField] GameObject i_Friends;
+    
 
     List<GameObject> AllPanels = new List<GameObject>();
     bool isFirst = true;
+    string installedVersion;
+    string currentVersion;
     void Start()
     {
+        installedVersion = Application.version;
+        StartCoroutine(GetCurrentVersion());
         i_LoadingPanel.SetActive(true);
         AllPanels.Add(i_SelectDistrict);
         AllPanels.Add(i_Settings);
@@ -49,7 +57,14 @@ public class MainMenu : MonoBehaviour
             {
                 if (PlayerPrefs.GetString("LogIn", "") == "")
                 {
-                    i_loginPanel.SetActive(true);
+                    if (currentVersion == installedVersion)
+                    {
+                        i_loginPanel.SetActive(true);
+                    }
+                    else
+                    {
+                        VersionChecker.SetActive(true);
+                    }
                 }
                 else
                 {
@@ -66,6 +81,32 @@ public class MainMenu : MonoBehaviour
                 splashScreenTimer -= Time.deltaTime;
             }
             
+        }
+    }
+     IEnumerator GetCurrentVersion()
+    {
+        string uri = "https://apiplatzeeland.platzees.io/api/version/latest";
+        UnityWebRequest req = new UnityWebRequest(uri, "GET");
+        req.downloadHandler = new DownloadHandlerBuffer();
+        req.SetRequestHeader("Content-Type", "application/json");
+        yield return req.SendWebRequest();
+        if (req.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(req.error);
+        }
+        else
+        {
+            string res = req.downloadHandler.text;
+            Status status = JsonUtility.FromJson<Status>(res);
+         
+            if (status.body.code == "1")
+            {
+                var info = status.body.data;
+                currentVersion = info.version;
+                Debug.Log(currentVersion);
+                
+            }
+
         }
     }
 
@@ -170,4 +211,26 @@ public class MainMenu : MonoBehaviour
     }
 
     #endregion
+
+
+    [Serializable]
+    public class Status
+    {
+        public string error;
+        public string status;
+        public Body body;
+    }
+
+    [Serializable]
+    public class Body
+    {
+        public string code;
+        public Data data;
+    }
+    [Serializable]
+    public class Data
+    {
+        public string version;
+        public string creation_date;
+    }
 }

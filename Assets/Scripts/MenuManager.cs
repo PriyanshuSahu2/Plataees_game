@@ -95,7 +95,7 @@ public class MenuManager : MonoBehaviourPunCallbacks
 	{
 		Debug.Log(PhotonNetwork.CountOfPlayers);
 		loadingPanel.SetActive(true);
-
+		PhotonNetwork.NickName = PlayerPrefs.GetString("PlayerName", "Player");
 		StartCoroutine(LoadLevel(1));
 	}
 	public void GetPlayerData()
