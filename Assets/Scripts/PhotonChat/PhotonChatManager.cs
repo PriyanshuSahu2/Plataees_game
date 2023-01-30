@@ -28,7 +28,7 @@ public class PhotonChatManager : MonoBehaviour,IChatClientListener
 
     public void OnDisconnected()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Disconnected");
     }
 
     public void OnGetMessages(string channelName, string[] senders, object[] messages)
