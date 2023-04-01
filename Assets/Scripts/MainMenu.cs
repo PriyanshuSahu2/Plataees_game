@@ -104,7 +104,6 @@ public class MainMenu : MonoBehaviour
                 var info = status.body.data;
                 currentVersion = info.version;
                 Debug.Log(currentVersion);
-                
             }
 
         }
