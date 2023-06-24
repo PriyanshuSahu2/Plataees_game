@@ -52,8 +52,9 @@ public class Extractor : EditorWindow
                 string t = info[i].Replace("F:/Unity Projects/Plataees_game/", "");
                 Object g = AssetDatabase.LoadAssetAtPath(t.Replace("\\", "/"), typeof(GameObject));
                 var tex = AssetImporter.GetAtPath(t) as ModelImporter;
-                tex.materialLocation = ModelImporterMaterialLocation.InPrefab;
+                tex.materialLocation = ModelImporterMaterialLocation.External;
                 tex.ExtractTextures(t+"/Texture");
+                tex.materialName = ModelImporterMaterialName.BasedOnModelNameAndMaterialName;
                 tex.materialImportMode = ModelImporterMaterialImportMode.ImportViaMaterialDescription; 
               //  tex.ExtractTextures("Assets/All Houese/Textures/" + g.name);
                 // Debug.Log(tex.ExtractTextures("Assets/All Houese/Textures/"+g.name));
