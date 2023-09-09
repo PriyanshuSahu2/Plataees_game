@@ -59,6 +59,7 @@ public class Register : MonoBehaviour
         if (req.result != UnityWebRequest.Result.Success)
         {
             Debug.Log(req.error);
+           
         }
         else
         {
