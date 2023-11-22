@@ -2,53 +2,39 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
 
-public class ArrangeViaBase : EditorWindow
+public class ReplaceLastReamining : EditorWindow
 {
-
     [SerializeField] List<GameObject> gameObjects = new List<GameObject>();
     [SerializeField] List<GameObject> replaceGameObjects = new List<GameObject>();
     [SerializeField] Vector2 scrollPos;
-    [MenuItem("Window/Platzees/ArrangeViaBase")]
+    [MenuItem("Window/Platzees/ReplaceRemainingPlatzees")]
     public static void ShowWindow()
     {
-        EditorWindow.GetWindow<ArrangeViaBase>("ArrangeViaBase");
+        EditorWindow.GetWindow<ReplaceLastReamining>("ReplaceRemainingPlatzees");
     }
-    string childObjectName;
+
     private void OnGUI()
     {
-        EditorGUILayout.BeginHorizontal();
-        GUILayout.Label("How Many Houses You Want To Replace");
-        childObjectName = EditorGUILayout.TextField("Object Name: ", childObjectName);
-        EditorGUILayout.EndHorizontal();
+
         if (GUILayout.Button("ListAll"))
         {
             GameObject[] parentObjects = GameObject.FindGameObjectsWithTag("House");
             GameObject[] replaceParentObject = GameObject.FindGameObjectsWithTag("ReplaceWith");
-            
+            Debug.Log(parentObjects);
 
             foreach (GameObject parent in parentObjects)
             {
-                Transform parentTransform = parent.transform;
+          
 
-                Transform childTransform = parentTransform.Find(childObjectName);
-                if (childTransform != null)
-                {
-                    // Child object with the specific name found
+
                     gameObjects.Add(parent);
-                    
-                }
-            }
-            foreach(GameObject parent in replaceParentObject)
-            {
-                Transform parentTransform = parent.transform;
 
-                Transform childTransform = parentTransform.Find(childObjectName);
-                if (childTransform != null)
-                {
-                    // Child object with the specific name found
-                    replaceGameObjects.Add(parent);
-                    
-                }
+                
+            }
+            foreach (GameObject parent in replaceParentObject)
+            {
+
+                replaceGameObjects.Add(parent);
             }
 
         }
@@ -74,7 +60,7 @@ public class ArrangeViaBase : EditorWindow
         EditorGUILayout.EndVertical();
         EditorGUILayout.EndScrollView();
         EditorGUILayout.EndHorizontal();
-        
+
 
 
 
@@ -86,7 +72,7 @@ public class ArrangeViaBase : EditorWindow
                 replaceGameObjects[i].transform.position = gameObjects[i].transform.position;
                 replaceGameObjects[i].transform.rotation = gameObjects[i].transform.rotation;
                 replaceGameObjects[i].gameObject.tag = "Completed";
-               
+
             }
             for (int i = 0; i < size; i++)
             {
@@ -96,4 +82,3 @@ public class ArrangeViaBase : EditorWindow
         }
     }
 }
-
