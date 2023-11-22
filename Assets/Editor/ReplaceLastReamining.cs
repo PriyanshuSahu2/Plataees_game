@@ -25,11 +25,7 @@ public class ReplaceLastReamining : EditorWindow
             foreach (GameObject parent in parentObjects)
             {
           
-
-
-                    gameObjects.Add(parent);
-
-                
+               gameObjects.Add(parent);
             }
             foreach (GameObject parent in replaceParentObject)
             {
