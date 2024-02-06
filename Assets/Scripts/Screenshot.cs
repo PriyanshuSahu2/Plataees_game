@@ -5,7 +5,7 @@ using UnityEngine;
 public class Screenshot : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] string path = @"C:\Users\sahup\Desktop\New folder";
+    [SerializeField] string path = @"C:\Users\sahup\OneDrive\Desktop\Screenshot";
     [SerializeField]
     
     int size = 1;
@@ -19,7 +19,7 @@ public class Screenshot : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            path += "screenshot ";
+            path += "screenshot";
             path += System.Guid.NewGuid().ToString()+".png";
             ScreenCapture.CaptureScreenshot(path, size);
         }
