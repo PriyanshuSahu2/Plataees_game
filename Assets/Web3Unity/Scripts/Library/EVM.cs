@@ -28,6 +28,7 @@ public class EVM
   public static async Task<string> Verify(string _message, string _signature)
   {
     WWWForm form = new WWWForm();
+      form.AddField("projectId", "d19f73a3-5236-4c0b-bdcf-38c192f5db03");
     form.AddField("message", _message);
     form.AddField("signature", _signature);
     string url = host + "/verify";

@@ -17,12 +17,11 @@ public class PlayerPlatzeesInfo : MonoBehaviour
     public static List<Texture> myPlatzeesTexture = new List<Texture>();
     public bool isDistrict = false;
     bool isOpened = false;
+    
     private void OnEnable()
     {
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-
-
 
             if (PlayerPrefs.GetString("Account", "") != "" && isOpened == false)
             {
@@ -35,6 +34,7 @@ public class PlayerPlatzeesInfo : MonoBehaviour
     }
     private void Start()
     {
+        
         if (SceneManager.GetActiveScene().buildIndex != 0)
         {
 
@@ -44,6 +44,7 @@ public class PlayerPlatzeesInfo : MonoBehaviour
             }
         }
     }
+    
     public async void CallSmartContract()
     {
         // set chain: ethereum, moonbeam, polygon etc
@@ -64,7 +65,7 @@ public class PlayerPlatzeesInfo : MonoBehaviour
 
         // string args = "[\"0x5829081B71eaf16d4563121275a285df1843f191\"]";
 
-        //  Debug.Log(PlayerPrefs.GetString("Account", "0x5829081B71eaf16d4563121275a285df1843f191"));
+         Debug.Log(PlayerPrefs.GetString("Account", ""));
         // connects to user's browser wallet to call a transaction
         var response = await EVM.Call(chain, network, contract, abi, method, args);
         platzees = response.Split(',');
